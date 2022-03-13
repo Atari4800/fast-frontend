@@ -87,6 +87,26 @@ getRecipientName(recipient) {
         }
     }
 }
+     
+/**
+ * Function that returns the clients comment if present. Called for each client	
+ * in the itinerary for each driver's route.	
+ * @param {Object} recipient Recipient object from the route.	
+ * @returns The clients comment section	
+ */	
+getRecipientComment(recipient) {	
+    let clients = this.state.recipients	
+    for (let i = 0; i < clients.length; i++) {	
+        if (clients[i].id === recipient.id) {	
+            if (clients[i].comments != undefined) {	
+                return clients[i].comments	
+            }	
+            else {	
+                return ""	
+            }	
+        }	
+    }	
+}
 
 /**
  * Function to return full name for missing recipients. Called 
@@ -319,6 +339,7 @@ render() {
                             <th>Zip Code</th>
                             <th>Phone Number</th>
                             <th>Quantity</th>
+                            <th>Comments</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -331,6 +352,7 @@ render() {
                             <td>{l.address.zipcode}</td>
                             <td>{this.getPhone(l)}</td>
                             <td>{l.demand}</td>
+                            <td>{this.getRecipientComment(l)}</td>
                         </tr>
                     )}
                     </tbody>
