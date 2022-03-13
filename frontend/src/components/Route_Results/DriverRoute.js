@@ -98,6 +98,26 @@ componentDidMount() {
     }	
 }
      
+/**	
+ * Function that returns the clients room number if present. Called for each client	
+ * in the itinerary for each driver's route	
+ * @param {Number} recipient Recipient object from the route	
+ * @returns The clients room number	
+ */	
+getRecipientRoomNumber(recipient) {	
+    let clients = this.state.recipients	
+    for (let i = 0; i < clients.length; i++) {	
+        if (clients[i].id === recipient.id) {	
+            if (clients[i].location.room_number != undefined && clients[i].location.room_number != "N/A") {	
+                return clients[i].location.room_number	
+            }	
+            else {	
+                return ""	
+            }	
+        }	
+    }	
+}
+     
 /**
  * Function to return phone number for individual recipients. Called 
  * for each client in the itinerary for the driver's route.
@@ -162,6 +182,7 @@ render() {
                         <tr>
                             <th>Name</th>
                             <th>Address</th>
+                            <th>Apt #</th>
                             <th>City</th>
                             <th>State</th>
                             <th>Zip Code</th>
@@ -175,6 +196,7 @@ render() {
                         <tr>
                             <td>{this.getRecipientName(l)}</td>
                             <td>{l.address.address}</td>
+                            <td>{this.getRecipientRoomNumber(l) ? this.getRecipientRoomNumber(l) : ""}</td>
                             <td>{l.address.city}</td>
                             <td>{l.address.state}</td>
                             <td>{l.address.zipcode}</td>
