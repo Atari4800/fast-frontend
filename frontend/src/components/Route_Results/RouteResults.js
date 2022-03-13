@@ -302,10 +302,14 @@ render() {
             <Card.Title className="card-header border-dark bg-grey">
                 <Col>
                     <Row className="d-flex flex-row">
-                        <Col sm={8} className="title">
+                        <Col sm={7} className="title">
                             {this.getDriverName(r)}
                         </Col>
-                        <Col sm={4} className="justify-content-end d-flex flex-row">
+                        <Col sm={0} className="justify-content-around d-flex flex-row">
+                            <Button 	
+                                target="_blank" >View Metrics</Button>	
+                            <Button href={this.getItineraryMapURL(r)}	
+                                target="_blank">View Route Map</Button>
                             <Button href={"/routeResults/driverRoute/" 
                                 + r.id + "/" + r.assigned_to} 
                                 target="_blank">Print Itinerary</Button>
@@ -340,10 +344,6 @@ render() {
                     <Row className="d-flex flex-row">
                         <Col sm={8} className="title">
                             Delivery List
-                        </Col>
-                        <Col sm={4} className="justify-content-end d-flex flex-row">
-                            <Button href={"https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0=5545 Center St, Omaha, NE 68106;64;0&wp.1=6001 Dodge St;64;1&wp.2=1110 S 67th St, Omaha, NE 68182;64;2&key=" + BING_MAPS_API_KEY}
-                                target="_blank">View Route Map</Button>
                         </Col>   
                     </Row>
                 </Col> 
