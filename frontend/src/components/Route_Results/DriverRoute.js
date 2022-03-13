@@ -88,7 +88,7 @@ componentDidMount() {
     let clients = this.state.recipients	
     for (let i = 0; i < clients.length; i++) {	
         if (clients[i].id === recipient.id) {	
-            if (clients[i].comments != undefined) {	
+            if (clients[i].comments !== undefined) {	
                 return clients[i].comments	
             }	
             else {	
@@ -108,7 +108,7 @@ getRecipientRoomNumber(recipient) {
     let clients = this.state.recipients	
     for (let i = 0; i < clients.length; i++) {	
         if (clients[i].id === recipient.id) {	
-            if (clients[i].location.room_number != undefined && clients[i].location.room_number != "N/A") {	
+            if (clients[i].location.room_number !== undefined && clients[i].location.room_number !== "N/A") {	
                 return clients[i].location.room_number	
             }	
             else {	
