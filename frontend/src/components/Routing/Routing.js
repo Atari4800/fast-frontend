@@ -1,4 +1,5 @@
 import  React, { Component } from  'react';
+import Spinner from 'react-bootstrap/Spinner'
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -27,7 +28,8 @@ constructor(props) {
             location: {},
           },
           duration_limit: '',
-         }
+         },
+         loading: false
      };
 
     //  this.getCenter = this.getCenter.bind(this);
@@ -105,6 +107,7 @@ handleDeliveryLimit(event){
     ...prevState.route,
     delivery_limit: value}
   }));
+  this.delivery_limit = value
 }
 
 handleDuration(event){
@@ -114,6 +117,7 @@ handleDuration(event){
     ...prevState.route,
     duration_limit: value}
   }));
+  this.duration_limit = value
 }
 
 handleDeparture(event){
@@ -153,13 +157,21 @@ getCenter(location) {
 
 handleSubmit = (event) => {
   event.preventDefault();
+  this.setState({
+       loading: true
+  });
   routeService.createRoute(this.state.route).then(result => {
     let redirect = "/routeResults/" + result.id 
     window.open(redirect, "_blank")
+    this.setState({
+         loading: false
+    });
   });
 }
 
 render() {
+     
+     const { handleSubmit, state } = this;
 
     return (
       <Container>
@@ -196,7 +208,14 @@ render() {
         <SelectDriver parentCallback = {this.handleDriverCallback}/>
         <SelectRecipient parentCallback = {this.handleRecipientCallback} />
        
-        <Button className="mr-2 mt-4 btn" variant="primary" onClick={this.handleSubmit}>Create Route</Button>
+        <Button className="mr-2 mt-4 btn" variant="primary" disabled={this.state.loading}
+               onClick={handleSubmit}>
+                    {this.state.loading ?  	
+                         <Spinner	
+                              animation="border" role="status">	
+                              <span className="visually-hidden">Loading...</span>	
+                         </Spinner> : "Create Route"}	
+        </Button>
         </Form> 
       </Container>
     );
