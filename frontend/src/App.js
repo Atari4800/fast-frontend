@@ -17,6 +17,7 @@ import UploadDriversList from './components/Data/Driver/UploadDriversList'
 import PreviewDrivers from './components/Data/Driver/PreviewDrivers'
 import RouteResults from './components/Route_Results/RouteResults';
 import DriverRoute from './components/Route_Results/DriverRoute';
+import History from './components/History';
 
 import './App.css';
 
@@ -30,6 +31,7 @@ const BaseLayout = () => (
           <div className="navbar-nav">
             <a className="nav-item nav-link" href="/">DATA</a>
             <a className="nav-item nav-link" href="/routing">CREATE ROUTE</a>
+            <a className="nav-item nav-link" href="/history">HISTORY</a>
           </div>
         </div>
       </nav>
@@ -39,6 +41,7 @@ const BaseLayout = () => (
       <Route path="/" exact component={Driver} />
       <br/>
       <Route path="/" exact component={Recipient} />
+      <Route path="/history" exact component={History} />
       <Route path="/routing" exact component={Routing} />
       <Route path="/routeResults/:id" exact component={RouteResults} />
       <Route path="/routeResults/driverRoute/:routeId/:driverId" exact component={DriverRoute} />
