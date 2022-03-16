@@ -17,7 +17,7 @@ import UploadDriversList from './components/Data/Driver/UploadDriversList'
 import PreviewDrivers from './components/Data/Driver/PreviewDrivers'
 import RouteResults from './components/Route_Results/RouteResults';
 import DriverRoute from './components/Route_Results/DriverRoute';
-import History from './components/History';
+import History from './components/History'
 
 import './App.css';
 
