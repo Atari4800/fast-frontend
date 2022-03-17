@@ -4,10 +4,10 @@ import { Route } from 'react-router-dom'
 
 //import CustomersList from './example/CustomersList'
 
-import Recipient from './components/Data/Recipient/Recipient'
-import Driver from './components/Data/Driver/Driver'
-import AddDriver from './components/Data/Driver/AddDriver'
-import AddRecipient from './components/Data/Recipient/AddRecipient'
+import Recipient from './components/Data/Recipient/Recipient';
+import Driver from './components/Data/Driver/Driver';
+import AddDriver from './components/Data/Driver/AddDriver';
+import AddRecipient from './components/Data/Recipient/AddRecipient';
 import UpdateDriver from './components/Data/Driver/UpdateDriver';
 import UpdateRecipient from './components/Data/Recipient/UpdateRecipient';
 import ViewRecipient from './components/Data/Recipient/ViewRecipient';
@@ -17,7 +17,7 @@ import UploadDriversList from './components/Data/Driver/UploadDriversList'
 import PreviewDrivers from './components/Data/Driver/PreviewDrivers'
 import RouteResults from './components/Route_Results/RouteResults';
 import DriverRoute from './components/Route_Results/DriverRoute';
-import History from './components/History'
+import History from './components/History/History';
 
 import './App.css';
 

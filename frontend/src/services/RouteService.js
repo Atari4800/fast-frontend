@@ -29,6 +29,11 @@ export default class RouteService{
         return axios.get(url).then(response => response.data);
     }
 
+    getRouteList() {
+        const url = `${API_URL}/api/routeList/`;
+        return axios.get(url).then(response => response.data);
+    }
+
     /**
      * This method connects to the backend database to retrieve
      * the information for a specific route, based on the value 
