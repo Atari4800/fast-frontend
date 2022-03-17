@@ -37,7 +37,7 @@ class History extends Component {
 
     displayAllRoutes() {
         let routes = this.state.routeList
-        let str = "Something "
+        let str = "\n\nSomething "
         for (let i = 0; i < routes.length; i++) {
             str += routes[i].routes + " "
         }
@@ -45,7 +45,7 @@ class History extends Component {
     }
 
     displayAnyRoute() {
-        return `Blah:${this.state.routeList.length}\n`
+        return `Blah:${this.state.routeList.routes}\n`
     }
 
 
@@ -54,6 +54,7 @@ class History extends Component {
                 <h1>
                     {this.displayAnyRoute()}
                     {this.state.routeList.length + "\n"}
+                    {this.state.routeList[0]}
                     {this.displayAllRoutes()}
                     {/* {this.state.routeList.map( r => 
                         <p>{r.total_distance}</p>
