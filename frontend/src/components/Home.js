@@ -4,12 +4,12 @@ function Home() {
     return (
         <div class="content">
             <h1 style={{color:"blue",textAlign:"center"}} >About</h1><br />
-            <p style={{textAlign:"center", paddingLeft:"200px", paddingRight:"200px"}}>This App can be used to create a multiple vehicle route delivery. By inputting the data of your drivers and recipients, 
+            <p style={{textAlign:"center", paddingLeft:"300px", paddingRight:"300px"}}>This App can be used to create a multiple vehicle route delivery. By inputting the data of your drivers and recipients, 
                 this app will use Bing Maps to create an optimized route for your drivers to follow, as well as allow you to view a map 
-                of those routes and check some basic metrics of the routes.</p><br />
+                of those routes.</p><br />
             <h1 style={{color:"blue", textAlign:"center"}}>Instructions</h1><br />
-            <h3 style={{color:"navy"}}>How to add new data:</h3>
-            <p>
+            <h3 style={{color:"navy", paddingLeft:"300px"}}>How to add new data:</h3>
+            <p style={{paddingLeft:"300px"}}>
                 To add a single new Driver to this App: 
                 <ol>
                     <li>Click on Data at the upper right</li>
@@ -17,7 +17,6 @@ function Home() {
                     <li>Enter all eligable fields of data</li>
                     <li>Click the Submit button</li>
                 </ol>
-
                 To add a single new Recipient to this App: 
                 <ol>
                     <li>Click on Data at the upper right</li>
@@ -28,10 +27,10 @@ function Home() {
 
                 Once a Driver or Recipient has been added, you may edit the data by clicking on Edit in
                 any Driver or Recipients row.<br /><br />
-                <h3 style={{color:"navy"}}>How to add multiple Drivers or Recipienmts simultaneously:</h3>
+                <h3 style={{color:"navy"}}>How to add multiple Drivers or Recipients simultaneously:</h3>
                 To add multiple Drivers or Recipients at a time, prepare an Excel spreadsheet 
                 or Comma Separated Value (CSV) file with the header format as follows:<br /><br />
-                For Driver the header row should be in the format:<br />
+                For Drivers the header row should be in the format:<br />
                 <table>
                     <tr>
                         <td style={{border:"2px solid black"}}>FirstName</td>
@@ -44,7 +43,7 @@ function Home() {
                     </tr>
                 </table>
                 <br />
-                For Recipient the header row should be in the format:<br />
+                For Recipients the header row should be in the format:<br />
                 <table style={{border:"1px solid black"}}>
                     <tr>
                         <td style={{border:"2px solid black"}}>Firstname</td>
@@ -66,7 +65,7 @@ function Home() {
                 <ol>
                     <li>Select the Maximum Capacity hat the Drivers can deliver</li>
                     <li>Select the Maximum Hours the volunteers can work this assignment</li>
-                    <li>Select the Departure Location if one is not already selected</li><br />
+                    <li>Select the Departure Location if one is not already selected</li>
                     <li>Enter the drivers to be added to the assignment
                         <ol>
                             <li>Click the empty box next to Driver</li>
@@ -75,13 +74,13 @@ function Home() {
                         </ol>
                     </li>
                     <li>Enter the Recipients to be delivered to on this assignment
-                        <ul><li>Enter this the same way as Drivers above</li></ul>
+                        <ul><li>Enter Recipients the same way as above</li></ul>
                     </li>
                     <li>Click Create Route button</li>
                 </ol>
                 The algorithm will run and display the results when it is finished.<br /><br />
                 
-                <h3 style={{color:"navy"}}>Viewing Results</h3>
+                <h3 style={{color:"navy"}}>Viewing Results:</h3>
                 Once the assignment is complete, you may:
                 <ul>
                     <li>Click View Map to open a new window containing a static Bing map of the resulting routes</li>
@@ -89,8 +88,8 @@ function Home() {
                 </ul>
                 <br />
             </p>
-            <h1 style={{color:"blue"}}>Credits</h1><br />
-            <p>
+            <h1 style={{color:"blue", textAlign:"center"}}>Credits</h1><br />
+            <p style={{textAlign:"center" }}>
                 <h4 style={{color:"navy"}}>Sponsored by:</h4>
                 Fabio Torres Vitor, Ph. D. <br />
                 Assistant Professor<br />
