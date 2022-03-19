@@ -3,12 +3,12 @@ import './Home.css'
 function Home() {
     return (
         <div class="content">
-            <h1>About</h1><br />
-            <h5>This App can be used to create a multiple vehicle route delivery. By inputting the data of your drivers and recipients, 
+            <h1 style={{color:"blue",textAlign:"center"}} >About</h1><br />
+            <p style={{textAlign:"center", paddingLeft:"200px", paddingRight:"200px"}}>This App can be used to create a multiple vehicle route delivery. By inputting the data of your drivers and recipients, 
                 this app will use Bing Maps to create an optimized route for your drivers to follow, as well as allow you to view a map 
-                of those routes and check some basic metrics of the routes.</h5><br />
-            <h1>Instructions</h1><br />
-            <h3>How to add new data:</h3>
+                of those routes and check some basic metrics of the routes.</p><br />
+            <h1 style={{color:"blue", textAlign:"center"}}>Instructions</h1><br />
+            <h3 style={{color:"navy"}}>How to add new data:</h3>
             <p>
                 To add a single new Driver to this App: 
                 <ol>
@@ -28,15 +28,40 @@ function Home() {
 
                 Once a Driver or Recipient has been added, you may edit the data by clicking on Edit in
                 any Driver or Recipients row.<br /><br />
-                <h3>How to add multiple Drivers or Recipienmts simultaneously:</h3>
+                <h3 style={{color:"navy"}}>How to add multiple Drivers or Recipienmts simultaneously:</h3>
                 To add multiple Drivers or Recipients at a time, prepare an Excel spreadsheet 
                 or Comma Separated Value (CSV) file with the header format as follows:<br /><br />
-                For Driver the header row should be in the format<br />
-                Firstname | Lastname | Role | Availability | Language | Phone | Capacity<br /><br />
-                For Recipient the header row should be in the format<br />
-                Firstname | Lastname | Address | City | State | Zipcode | Center | Room_Number | Language | Quantity<br /><br />
+                For Driver the header row should be in the format:<br />
+                <table>
+                    <tr>
+                        <td style={{border:"2px solid black"}}>FirstName</td>
+                        <td style={{border:"2px solid black"}}>Lastname</td>
+                        <td style={{border:"2px solid black"}}>Role</td>
+                        <td style={{border:"2px solid black"}}>Availability</td>
+                        <td style={{border:"2px solid black"}}>Language</td>
+                        <td style={{border:"2px solid black"}}>Phone</td>
+                        <td style={{border:"2px solid black"}}>Capacity</td>
+                    </tr>
+                </table>
+                <br />
+                For Recipient the header row should be in the format:<br />
+                <table style={{border:"1px solid black"}}>
+                    <tr>
+                        <td style={{border:"2px solid black"}}>Firstname</td>
+                        <td style={{border:"2px solid black"}}>Lastname</td>
+                        <td style={{border:"2px solid black"}}>Address</td>
+                        <td style={{border:"2px solid black"}}>City</td>
+                        <td style={{border:"2px solid black"}}>State</td>
+                        <td style={{border:"2px solid black"}}>Zipcode</td>
+                        <td style={{border:"2px solid black"}}>Center</td>
+                        <td style={{border:"2px solid black"}}>Room_Number</td>
+                        <td style={{border:"2px solid black"}}>Language</td>
+                        <td style={{border:"2px solid black"}}>Quantity</td>
+                    </tr>
+                </table>
+                <br />
                 These files can be uploaded by clicking on the Browse Files button and browsing to your prepared file on your computer.<br /><br />
-                <h3>How to create new Routes:</h3>
+                <h3 style={{color:"navy"}}>How to create new Routes:</h3>
                 To create a Route from the provided Data, at the top of the screen, click Create Route, you will be taken to a new page. 
                 <ol>
                     <li>Select the Maximum Capacity hat the Drivers can deliver</li>
@@ -56,7 +81,7 @@ function Home() {
                 </ol>
                 The algorithm will run and display the results when it is finished.<br /><br />
                 
-                <h3>Viewing Results</h3>
+                <h3 style={{color:"navy"}}>Viewing Results</h3>
                 Once the assignment is complete, you may:
                 <ul>
                     <li>Click View Map to open a new window containing a static Bing map of the resulting routes</li>
@@ -64,9 +89,9 @@ function Home() {
                 </ul>
                 <br />
             </p>
-            <h1>Credits</h1><br />
+            <h1 style={{color:"blue"}}>Credits</h1><br />
             <p>
-                <h4>Sponsored by:</h4>
+                <h4 style={{color:"navy"}}>Sponsored by:</h4>
                 Fabio Torres Vitor, Ph. D. <br />
                 Assistant Professor<br />
                 Department of Mathematics <br />
@@ -74,13 +99,13 @@ function Home() {
                 Email: ftorresvitor@unomaha.edu<br />
                 Phone: (402) 554-2691<br /><br />
 
-                <h4>Main Contributors:</h4>
+                <h4 style={{color:"navy"}}>Main Contributors:</h4>
                 Liam Betterman<br />
                 Scott Negus<br />
                 Kamryn Pullen<br />
                 Isidore Sossa<br /><br />
 
-                <h4>Additional Contributions:</h4>
+                <h4 style={{color:"navy"}}>Additional Contributions:</h4>
                 Nick Cox<br />
                 Joel McMaken<br />
                 Will Palmer<br />
