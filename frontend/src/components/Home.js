@@ -4,12 +4,12 @@ function Home() {
     return (
         <div class="content">
             <h1 style={{color:"blue",textAlign:"center"}} >About</h1><br />
-            <p style={{textAlign:"center", paddingLeft:"300px", paddingRight:"300px"}}>This App can be used to create a multiple vehicle route delivery. By inputting the data of your drivers and recipients, 
+            <p style={{textAlign:"center", paddingLeft:"400px", paddingRight:"400px"}}>This App can be used to create a multiple vehicle route delivery. By inputting the data of your drivers and recipients, 
                 this app will use Bing Maps to create an optimized route for your drivers to follow, as well as allow you to view a map 
                 of those routes.</p><br />
             <h1 style={{color:"blue", textAlign:"center"}}>Instructions</h1><br />
             <h3 style={{color:"navy", paddingLeft:"400px"}}>How to add new data:</h3>
-            <p style={{paddingLeft:"400px"}}>
+            <p style={{paddingLeft:"400px", paddingRight:"300px"}}>
                 To add a single new Driver to this App: 
                 <ol style={{paddingLeft:"100px"}}>
                     <li>Click on Data at the upper right</li>
@@ -30,7 +30,7 @@ function Home() {
                 <h3 style={{color:"navy"}}>How to add multiple Drivers or Recipients simultaneously:</h3>
                 To add multiple Drivers or Recipients at a time, prepare an Excel spreadsheet 
                 or Comma Separated Value (CSV) file with the header format as follows:<br /><br />
-                For Drivers the header row should be in the format:<br />
+                For Drivers, the first line of the file should be in the format:<br />
                 <table>
                     <tr>
                         <td style={{border:"2px solid black"}}>FirstName</td>
@@ -43,7 +43,7 @@ function Home() {
                     </tr>
                 </table>
                 <br />
-                For Recipients the header row should be in the format:<br />
+                For Recipients, the first line of the file should be in the format:<br />
                 <table style={{border:"1px solid black"}}>
                     <tr>
                         <td style={{border:"2px solid black"}}>Firstname</td>
@@ -91,7 +91,7 @@ function Home() {
             <h1 style={{color:"blue", textAlign:"center"}}>Credits</h1><br />
             <p style={{textAlign:"center" }}>
                 <h4 style={{color:"navy"}}>Sponsored by:</h4>
-                Fabio Torres Vitor, Ph. D. <br />
+                <strong>Fabio Vitor, Ph.D.</strong><br />
                 Assistant Professor<br />
                 Department of Mathematics <br />
                 University of Nebraska at Omaha<br />
