@@ -8,17 +8,17 @@ function Home() {
                 this app will use Bing Maps to create an optimized route for your drivers to follow, as well as allow you to view a map 
                 of those routes.</p><br />
             <h1 style={{color:"blue", textAlign:"center"}}>Instructions</h1><br />
-            <h3 style={{color:"navy", paddingLeft:"300px"}}>How to add new data:</h3>
-            <p style={{paddingLeft:"300px"}}>
+            <h3 style={{color:"navy", paddingLeft:"400px"}}>How to add new data:</h3>
+            <p style={{paddingLeft:"400px"}}>
                 To add a single new Driver to this App: 
-                <ol>
+                <ol style={{paddingLeft:"100px"}}>
                     <li>Click on Data at the upper right</li>
                     <li>Click Add Driver to the right of the Driver title</li>
                     <li>Enter all eligable fields of data</li>
                     <li>Click the Submit button</li>
                 </ol>
                 To add a single new Recipient to this App: 
-                <ol>
+                <ol style={{paddingLeft:"100px"}}>
                     <li>Click on Data at the upper right</li>
                     <li>Click Add Recipient to the right of the Driver title</li>
                     <li>Enter all eligable fields of data</li>
@@ -62,7 +62,7 @@ function Home() {
                 These files can be uploaded by clicking on the Browse Files button and browsing to your prepared file on your computer.<br /><br />
                 <h3 style={{color:"navy"}}>How to create new Routes:</h3>
                 To create a Route from the provided Data, at the top of the screen, click Create Route, you will be taken to a new page. 
-                <ol>
+                <ol style={{paddingLeft:"100px"}}>
                     <li>Select the Maximum Capacity hat the Drivers can deliver</li>
                     <li>Select the Maximum Hours the volunteers can work this assignment</li>
                     <li>Select the Departure Location if one is not already selected</li>
@@ -82,7 +82,7 @@ function Home() {
                 
                 <h3 style={{color:"navy"}}>Viewing Results:</h3>
                 Once the assignment is complete, you may:
-                <ul>
+                <ul style={{paddingLeft:"100px"}}>
                     <li>Click View Map to open a new window containing a static Bing map of the resulting routes</li>
                     <li>Click View Metrics button to open a window containing calculated metrics for these routes</li>
                 </ul>
