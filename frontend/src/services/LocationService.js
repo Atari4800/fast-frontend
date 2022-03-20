@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8000/';
+const API_URL = 'http://127.0.0.1:8000';
 
 /**
  * This class provides a method to connect to the backend database
