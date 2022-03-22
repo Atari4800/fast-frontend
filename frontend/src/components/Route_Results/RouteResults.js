@@ -10,11 +10,12 @@ import RouteService from '../../services/RouteService'
 import RecipientService from '../../services/RecipientService'
 import DriverService from '../../services/DriverService'
 import LocationService from '../../services/LocationService'
+import BingMapsKey from './BingMapsKey';
 
 const  routeService  =  new  RouteService();
 const  recipientService  =  new  RecipientService();
 const  driverService  =  new  DriverService();
-const BING_MAPS_API_KEY = 'AlLYsXWEqlXy8y14QMZcm-iBTC8SsOP3_7SsRo_K5mwfaii_aLhwc0dqsPDfBSWU'
+const BING_MAPS_API_KEY = BingMapsKey.key;
 
 /**
  * This component is used to display route information for all 
