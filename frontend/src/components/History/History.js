@@ -12,8 +12,8 @@ const driverService = new DriverService();
 
 
 /**
- * This component is used to display route information for an 
- * individual driver.
+ * This class is used to display a history of all routes 
+ * created in the system.
  */
 class History extends Component {
 
@@ -108,25 +108,34 @@ class History extends Component {
             <main className="content">
                 <div className="row">
                     <Container>
-                        <Table>
-                            <tbody>
-                                {this.state.routes.map(r =>
+                        {this.state.routes.map(r =>
+                            <Table>
+                                <thead>
                                     <tr>
-                                        {r.itinerary.map(s =>
-                                            <tr>
-                                                <td>{this.getRecipientName(s)}</td>
-                                                <td>{s.address.address}</td>
-                                                <td>{s.address.city}</td>
-                                                <td>{s.address.state}</td>
-                                                <td>{s.address.zipcode}</td>
-                                                <td>{this.getPhone(s)}</td>
-                                                <td>{s.demand}</td>
-                                            </tr>
-                                        )}
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Zip Code</th>
+                                        <th>Phone Number</th>
+                                        <th>Quantity</th>
                                     </tr>
+                                </thead>
+                                {r.itinerary.map(s =>
+                                    <tbody>
+                                        <tr>
+                                            <td>{this.getRecipientName(s)}</td>
+                                            <td>{s.address.address}</td>
+                                            <td>{s.address.city}</td>
+                                            <td>{s.address.state}</td>
+                                            <td>{s.address.zipcode}</td>
+                                            <td>{this.getPhone(s)}</td>
+                                            <td>{s.demand}</td>
+                                        </tr>
+                                    </tbody>
                                 )}
-                            </tbody>
-                        </Table>
+                            </Table>
+                        )}
                     </Container>
                 </div>
             </main>
