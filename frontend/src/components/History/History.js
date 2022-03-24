@@ -25,6 +25,7 @@ class History extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            routes: [],
             route: {
                 itinerary: [], total_distance: "", total_duration: "",
                 total_quantity: "", first_name: "", last_name: ""
@@ -52,6 +53,12 @@ class History extends Component {
         routeService.getRoute(1).then(result => {
             this.setState({
                 route: result
+            })
+        })
+
+        routeService.getRoutes().then(result => {
+            this.setState({
+                routes: result
             })
         })
 
@@ -100,34 +107,27 @@ class History extends Component {
         return (
             <main className="content">
                 <div className="row">
-                <Container>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Zip Code</th>
-                            <th>Phone Number</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.route.itinerary.map(l =>
-                            <tr>
-                                <td>{this.getRecipientName(l)}</td>
-                                <td>{l.address.address}</td>
-                                <td>{l.address.city}</td>
-                                <td>{l.address.state}</td>
-                                <td>{l.address.zipcode}</td>
-                                <td>{this.getPhone(l)}</td>
-                                <td>{l.demand}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </Table>
-            </Container>
+                    <Container>
+                        <Table>
+                            <tbody>
+                                {this.state.routes.map(r =>
+                                    <tr>
+                                        {r.itinerary.map(s =>
+                                            <tr>
+                                                <td>{this.getRecipientName(s)}</td>
+                                                <td>{s.address.address}</td>
+                                                <td>{s.address.city}</td>
+                                                <td>{s.address.state}</td>
+                                                <td>{s.address.zipcode}</td>
+                                                <td>{this.getPhone(s)}</td>
+                                                <td>{s.demand}</td>
+                                            </tr>
+                                        )}
+                                    </tr>
+                                )}
+                            </tbody>
+                        </Table>
+                    </Container>
                 </div>
             </main>
         )
