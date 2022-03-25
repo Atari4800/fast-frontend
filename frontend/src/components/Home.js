@@ -98,13 +98,13 @@ function Home() {
                 Email: ftorresvitor@unomaha.edu<br />
                 Phone: (402) 554-2691<br /><br />
 
-                <h4 style={{color:"navy"}}>Main Contributors:</h4>
+                <h4 style={{color:"navy"}}>Fall 2021 UNO Capstone Team:</h4>
                 Liam Betterman<br />
                 Scott Negus<br />
                 Kamryn Pullen<br />
                 Isidore Sossa<br /><br />
 
-                <h4 style={{color:"navy"}}>Additional Contributions:</h4>
+                <h4 style={{color:"navy"}}>Spring 2022 UNO Capstone Team:</h4>
                 Nick Cox<br />
                 Joel McMaken<br />
                 Will Palmer<br />
