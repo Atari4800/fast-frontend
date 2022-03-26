@@ -35,13 +35,7 @@ constructor(props) {
          errorMessage: '',
          errorDurationColor: '',
          errorDeliveryColor: '',
-         'availability': {'sunday': true,
-         'monday': true, 'tuesday': true, 'wednesday': true, 
-         'thursday': true, 'friday': true, 'saturday': true},
-         isSelected: false
      };
-     this.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 
-                    'Friday', 'Saturday']
 
     //  this.getCenter = this.getCenter.bind(this);
      this.handleDriverCallback = this.handleDriverCallback.bind(this);
@@ -51,10 +45,6 @@ constructor(props) {
      this.handleDeliveryLimit = this.handleDeliveryLimit.bind(this);
      this.getEventValues = this.getEventValues.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
-     this.handleAvailabilityChange = this.handleAvailabilityChange.bind(this);
-     this.getAvailability = this.getAvailability.bind(this);
-     this.selectAllDays = this.selectAllDays.bind(this);
-     this.deSelectAllDays = this.deSelectAllDays.bind(this);
 }
 
 componentDidMount() {
@@ -215,65 +205,6 @@ handleSubmit = (event) => {
   }
 }
 
-handleAvailabilityChange(event) {
-  let [value, name] = this.getEventValues(event)
-  let id = event.target.id
-  let checked = event.target.checked 
-  this.setState(prevState => ({
-          [name]: {
-               ...prevState[name],
-               [id.toLowerCase()]: checked
-          }    
-      }
-      ));
-}
-
-getAvailability(day) {
-  day = day.toLowerCase()
-  return this.state.availability[day] ;
-}
-
-selectAllDays = (event) => {
-  let name = "availability"
-  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-  let checked = true
-  for (let i = 0; i < days.length; i++) {
-    let id = days[i]
-    this.setState(prevState => ({
-      [name]: {
-        ...prevState[name],
-        [id.toLowerCase()]: checked
-      }
-    }));
-  }
-  this.setState({
-    isSelected: false
-  })
-}
-
-deSelectAllDays = (event) => {
-  let name = "availability"
-  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-  let checked = false
-  for (let i = 0; i < days.length; i++) {
-    let id = days[i]
-    this.setState(prevState => ({
-      [name]: {
-        ...prevState[name],
-        [id.toLowerCase()]: checked
-      }
-    }));
-  }
-  this.setState({
-    isSelected: true
-  })
-}
-
-onSelect(event){
-  //passing driver id to parent component in Routing.js
-  this.props.parentCallback(event);
-}
-
 
 render() {
 
@@ -308,19 +239,7 @@ render() {
 
           </Form.Select>
         </Form.Group>
-        </Row> 
-
-        <Form.Group className="mb-3" style={{ marginTop: 20 }}>
-            <Row><Form.Label className="title">Driver Availability</Form.Label></Row>
-            <Button className="mr-4 btn" variant="primary" onClick={this.state.isSelected ? this.selectAllDays : this.deSelectAllDays}>
-              Select/Deselect All</Button>
-              { this.days.map( d =>
-                <Form.Check type="checkbox" name="availability" value="true"
-                checked={this.getAvailability(d)}
-                inline label={d} id={d}
-                onChange={this.handleAvailabilityChange}
-                />)}
-        </Form.Group> 
+        </Row>  
           
         <br/>
         <SelectDriver parentCallback = {this.handleDriverCallback}/>
