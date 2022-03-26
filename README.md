@@ -12,6 +12,17 @@ The third milestone objective was to fix any visible bugs that occurred within t
 
 One of our overall objectives for the project throughout the semester is to implement a map feature for routes. As of this milestone, we have successfully implemented a static map feature which provides a visualization of a generated route. We will continue to evaluate to see whether or not this feature can be improved upon.
 
+
+## Milestone 2 Release Notes:
+
+For Milestone 2, the two primary objectives our team wanted to focus on for the frontend was:
+1) Research metrics and discuss information with client.
+2) Research GIS methods and how to implement them.
+
+The team ran into some obstacles in the pursuit of these two objectives. The team sponsor, Dr. Vitor, sent an email to the Intercultural Senior Center to gather exploratory information regarding potential metrics and other possible information. Because the Intercultural Senior Center is very busy, a meeting between the organization and the team regarding metrics information had to be arranged on a date relatively late in the month (March 25th) before the due date of milestone 2. On the subject of researching GIS methods to possibly improve the map function of the application, it has become apparent in the past week that adding "nice-to-have" features to the map feature would require changing the entire implementation, which could detract from other opportunities to improve the application. Due to time constraints, our team decided it would be better to set the map feature aside because it has been implemented to an acceptable level. This decision will affect the team's decisions on upcoming milestones, which will be explained in relevant future release notes.
+
+To compensate for these challenges, the team has decided to focus on improving other aspects of the frontend. A new page has been added to the application which will serve as a homepage. This will hopefully help provide useful information to new users as to how the application works. Another change to the application is how recipient information is entered and displayed. Finally, the user interface has been improved to provide user feedback when inputting information to generate routes.
+
 # Installation
 
 - Install latest version of [Nodejs](https://nodejs.org/en/download/) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
