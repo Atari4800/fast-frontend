@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 
 
 class UploadDriversList extends Component {
-    constructor(){}
+    constructor() { }
     render() {
         return (
             <Container className="card mt-2">

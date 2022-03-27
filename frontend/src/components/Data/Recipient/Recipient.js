@@ -1,4 +1,4 @@
-import  React, { Component } from  'react';
+import React, { Component } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -16,7 +16,7 @@ import Stack from 'react-bootstrap/Stack';
 
 const recipientService = new RecipientService();
 const searchService = new SearchService();
-const  fileService = new FileService();
+const fileService = new FileService();
 
 
 /**
@@ -25,16 +25,16 @@ const  fileService = new FileService();
  */
 class Recipient extends Component {
 
-/**
- * The constructor method initializes the component's state object and
- * binds the methods of the component to the current instance.
- * @param {Object} props The properties passed to the component.
- */
+    /**
+     * The constructor method initializes the component's state object and
+     * binds the methods of the component to the current instance.
+     * @param {Object} props The properties passed to the component.
+     */
     constructor(props) {
         super(props);
-        this.state  = {
+        this.state = {
             recipients: [],
-            filtered: [], 
+            filtered: [],
             fileContent: [],
             new_recipients: [],
             show: false,
@@ -54,9 +54,9 @@ class Recipient extends Component {
      * Life cycle hook that is called after the component is first rendered.
      */
     componentDidMount() {
-        var  self  =  this;
+        var self = this;
         recipientService.getRecipients().then(function (result) {
-            self.setState({ recipients:  result, filtered: result});
+            self.setState({ recipients: result, filtered: result });
         });
     }
 
@@ -64,82 +64,82 @@ class Recipient extends Component {
         const isSorted = this.state.sorted;
         if (key === 'firstname') {
             if (this.state.sorted) {
-                this.state.recipients.sort((recipient1, recipient2) => {return recipient2.first_name.localeCompare(recipient1.first_name)});
+                this.state.recipients.sort((recipient1, recipient2) => { return recipient2.first_name.localeCompare(recipient1.first_name) });
             } else {
-                this.state.recipients.sort((recipient1, recipient2) => {return recipient1.first_name.localeCompare(recipient2.first_name)});
+                this.state.recipients.sort((recipient1, recipient2) => { return recipient1.first_name.localeCompare(recipient2.first_name) });
             }
         } else if (key === 'lastname') {
             if (this.state.sorted) {
-                this.state.recipients.sort((recipient1, recipient2) => {return recipient2.last_name.localeCompare(recipient1.last_name)});
+                this.state.recipients.sort((recipient1, recipient2) => { return recipient2.last_name.localeCompare(recipient1.last_name) });
             } else {
-                this.state.recipients.sort((recipient1, recipient2) => {return recipient1.last_name.localeCompare(recipient2.last_name)});
+                this.state.recipients.sort((recipient1, recipient2) => { return recipient1.last_name.localeCompare(recipient2.last_name) });
             }
         } else if (key === 'quantity') {
             if (this.state.sorted) {
-                this.state.recipients.sort((recipient1, recipient2) => {return recipient2.quantity - recipient1.quantity});
+                this.state.recipients.sort((recipient1, recipient2) => { return recipient2.quantity - recipient1.quantity });
             } else {
-                this.state.recipients.sort((recipient1, recipient2) => {return recipient1.quantity - recipient2.quantity});
+                this.state.recipients.sort((recipient1, recipient2) => { return recipient1.quantity - recipient2.quantity });
             }
         } else if (key == 'address') {
             if (this.state.sorted) {
-                this.state.recipients.sort((recipient1, recipient2) => {return recipient2.location.address.localeCompare(recipient1.location.address)});
+                this.state.recipients.sort((recipient1, recipient2) => { return recipient2.location.address.localeCompare(recipient1.location.address) });
             } else {
-                this.state.recipients.sort((recipient1, recipient2) => {return recipient1.location.address.localeCompare(recipient2.location.address)});
+                this.state.recipients.sort((recipient1, recipient2) => { return recipient1.location.address.localeCompare(recipient2.location.address) });
             }
         }
-        this.setState({recipients: this.state.recipients, sorted: !isSorted});
+        this.setState({ recipients: this.state.recipients, sorted: !isSorted });
     }
 
-    refreshRecipients(){
-        var  self  =  this;
+    refreshRecipients() {
+        var self = this;
         recipientService.getRecipients().then(function (result) {
-            self.setState({ recipients:  result, filtered: result});
-            });
+            self.setState({ recipients: result, filtered: result });
+        });
     }
 
     handleClose() {
-        this.setState({show: false});
+        this.setState({ show: false });
     }
-    
+
     handleSave() {
         this.handleClose();
         this.handleRecipientDelete(this.state.recipientToDelete);
-        this.setState({recipientToDelete: {}});
+        this.setState({ recipientToDelete: {} });
     }
-    
+
     handleShow(e, d) {
         e.preventDefault();
-        this.setState({show: true, recipientToDelete: d});
+        this.setState({ show: true, recipientToDelete: d });
     }
 
-/**
- * Event handler used to delete a recipient from the database when the 
- * user clicks on the delete button.
- * @param {Object} r The recipient object to be deleted.
- */
-handleRecipientDelete(r){
-    var  self  =  this;
-    recipientService.deleteRecipient(r).then(()=>{
-        var  newArr  =  self.state.recipients.filter(function(obj) {
-            return  obj.id  !==  r.id;
+    /**
+     * Event handler used to delete a recipient from the database when the 
+     * user clicks on the delete button.
+     * @param {Object} r The recipient object to be deleted.
+     */
+    handleRecipientDelete(r) {
+        var self = this;
+        recipientService.deleteRecipient(r).then(() => {
+            var newArr = self.state.recipients.filter(function (obj) {
+                return obj.id !== r.id;
+            });
+
+            self.setState({ recipients: newArr, filtered: newArr })
         });
+    }
 
-        self.setState({recipients:  newArr, filtered: newArr})
-    });
-}
-
-/**
- * Event handler method called when the user enters a value into the 
- * recipient search box.
- * @param {Object} e The event triggered when a user enters information
- *                      into the search field.
- */
- handleSearch(e) {
-    let newList = searchService.findRecipients(e, this.state.recipients);
-    this.setState({
-        filtered: newList
-    });
-}
+    /**
+     * Event handler method called when the user enters a value into the 
+     * recipient search box.
+     * @param {Object} e The event triggered when a user enters information
+     *                      into the search field.
+     */
+    handleSearch(e) {
+        let newList = searchService.findRecipients(e, this.state.recipients);
+        this.setState({
+            filtered: newList
+        });
+    }
 
 
     get_languages(languages_list) {
@@ -154,7 +154,7 @@ handleRecipientDelete(r){
     }
 
     capitalize(str) {
-        if (typeof(str) == 'string') {
+        if (typeof (str) == 'string') {
             if (str.length > 0) {
                 str = str.toLowerCase();
                 str = str.charAt(0).toUpperCase() + str.slice(1);
@@ -186,12 +186,15 @@ handleRecipientDelete(r){
                 fileContent: data
             });
 
-            for(var row in data) {
+            for (var row in data) {
                 let recipient_template = {
-                    'user': '', 'first_name': '', 'last_name': '', 'phone' : '', 'quantity': 1, 
-                    'location': {'address':'', 'city':'', 'state':'', 'room_number':'', 'zipcode':'', 
-                    'is_center':false}, 'languages': []};
-                
+                    'user': '', 'first_name': '', 'last_name': '', 'phone': '', 'quantity': 1,
+                    'location': {
+                        'address': '', 'city': '', 'state': '', 'room_number': '', 'zipcode': '',
+                        'is_center': false
+                    }, 'languages': []
+                };
+
                 var recipient_data = data[row];
                 let keys = Object.keys(recipient_data)
                 for (var index in keys) {
@@ -206,7 +209,7 @@ handleRecipientDelete(r){
                 } else {
                     recipient_template.first_name = " ";
                 }
-                
+
                 if (keys.includes('lastname')) {
                     recipient_template.last_name = recipient_data.lastname.trim();
                 } else {
@@ -235,10 +238,10 @@ handleRecipientDelete(r){
         });
     }
 
-  /**
-   * The render method used to display the component. 
-   * @returns The HTML to be rendered.
-   */
+    /**
+     * The render method used to display the component. 
+     * @returns The HTML to be rendered.
+     */
     render() {
 
         return (
@@ -247,21 +250,21 @@ handleRecipientDelete(r){
                     <Col>
                         <Row className="d-flex flex-row">
                             <Col sm={2} className="table-title title">Recipients</Col>
-                            <Col sm={8} class="mt-3"> 
+                            <Col sm={8} class="mt-3">
                                 <InputGroup class="mb-2">
                                     <InputGroup.Text>
-                                    {// <Search icon="search"></Search>
-                                    }
+                                        {// <Search icon="search"></Search>
+                                        }
                                     </InputGroup.Text>
-                                        <FormControl
-                                                type="text"
-                                                placeholder="Search recipients"
-                                                id="search"
-                                                v-model="search"
-                                                name="search"
-                                                aria-label="Search"
-                                                onChange={this.handleSearch}
-                                            //ref="title"
+                                    <FormControl
+                                        type="text"
+                                        placeholder="Search recipients"
+                                        id="search"
+                                        v-model="search"
+                                        name="search"
+                                        aria-label="Search"
+                                        onChange={this.handleSearch}
+                                    //ref="title"
                                     ></FormControl>
                                 </InputGroup>
                             </Col>
@@ -277,49 +280,49 @@ handleRecipientDelete(r){
                             <tr>
                                 <th>
                                     <Stack direction='horizontal' gap={3}>
-                                        <div >First Name</div> 
+                                        <div >First Name</div>
                                         <div className='ms-auto'>
-                                            <Button 
-                                                variant='outline-secondary' 
+                                            <Button
+                                                variant='outline-secondary'
                                                 size='sm'
                                                 onClick={() => this.sortColumn('firstname')}
-                                                >&#8693;</Button>
+                                            >&#8693;</Button>
                                         </div>
                                     </Stack>
                                 </th>
                                 <th>
                                     <Stack direction='horizontal' gap={3}>
-                                        <div >Last Name</div> 
+                                        <div >Last Name</div>
                                         <div className='ms-auto'>
-                                            <Button 
-                                                variant='outline-secondary' 
+                                            <Button
+                                                variant='outline-secondary'
                                                 size='sm'
                                                 onClick={() => this.sortColumn('lastname')}
-                                                >&#8693;</Button>
+                                            >&#8693;</Button>
                                         </div>
                                     </Stack>
                                 </th>
                                 <th>
                                     <Stack direction='horizontal' gap={3}>
-                                        <div >Quantity</div> 
+                                        <div >Quantity</div>
                                         <div className='ms-auto'>
-                                            <Button 
-                                                variant='outline-secondary' 
+                                            <Button
+                                                variant='outline-secondary'
                                                 size='sm'
                                                 onClick={() => this.sortColumn('quantity')}
-                                                >&#8693;</Button>
+                                            >&#8693;</Button>
                                         </div>
                                     </Stack>
                                 </th>
                                 <th>
                                     <Stack direction='horizontal' gap={3}>
-                                        <div >Address</div> 
+                                        <div >Address</div>
                                         <div className='ms-auto'>
-                                            <Button 
-                                                variant='outline-secondary' 
+                                            <Button
+                                                variant='outline-secondary'
                                                 size='sm'
                                                 onClick={() => this.sortColumn('address')}
-                                                >&#8693;</Button>
+                                            >&#8693;</Button>
                                         </div>
                                     </Stack>
                                 </th>
@@ -327,28 +330,28 @@ handleRecipientDelete(r){
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.filtered.map( r  =>
-                                <tr  key={r.id}>
-                                <td>{r.first_name}</td>
-                                <td>{r.last_name}</td>
-                                <td>{r.quantity}</td>
-                                <td>{r.location.address}</td>
-                                <td>
-                                    <Button className="mr-2" href={"/recipientDetail/" + r.id}>View</Button>
-                                    <Button className="mr-2" href={"/updateRecipient/" + r.id}>Edit</Button>
-                                    <Button  onClick={(e) => this.handleShow(e, r)}> Delete</Button>
-                                    <DialogBox 
-                                        show={this.state.show} 
-                                        modalTitle='Confirm Deletion'
-                                        mainMessageText='Are you sure you want to delete this entry?'
-                                        handleClose={this.handleClose}
-                                        handleSave={this.handleSave}
-                                        closeText='Cancel'
-                                        saveText='Delete'
-                                        buttonType='danger'
-                                    />
-                                </td>
-                            </tr>)}
+                            {this.state.filtered.map(r =>
+                                <tr key={r.id}>
+                                    <td>{r.first_name}</td>
+                                    <td>{r.last_name}</td>
+                                    <td>{r.quantity}</td>
+                                    <td>{r.location.address}</td>
+                                    <td>
+                                        <Button className="mr-2" href={"/recipientDetail/" + r.id}>View</Button>
+                                        <Button className="mr-2" href={"/updateRecipient/" + r.id}>Edit</Button>
+                                        <Button onClick={(e) => this.handleShow(e, r)}> Delete</Button>
+                                        <DialogBox
+                                            show={this.state.show}
+                                            modalTitle='Confirm Deletion'
+                                            mainMessageText='Are you sure you want to delete this entry?'
+                                            handleClose={this.handleClose}
+                                            handleSave={this.handleSave}
+                                            closeText='Cancel'
+                                            saveText='Delete'
+                                            buttonType='danger'
+                                        />
+                                    </td>
+                                </tr>)}
                         </tbody>
                     </Table>
                 </Row>
@@ -360,11 +363,11 @@ handleRecipientDelete(r){
                         <Row>
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Control type="file" onChange={
-                                        (e) => {
-                                            this.readFile(e);
-                                        }
+                                    (e) => {
+                                        this.readFile(e);
                                     }
-                                    ref= {this.fileInput} accept='.csv, .xls, .xlsx'
+                                }
+                                    ref={this.fileInput} accept='.csv, .xls, .xlsx'
                                 />
                             </Form.Group>
                         </Row>
@@ -388,4 +391,4 @@ handleRecipientDelete(r){
         );
     }
 }
-export  default  Recipient;
+export default Recipient;

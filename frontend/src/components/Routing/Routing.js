@@ -1,4 +1,4 @@
-import  React, { Component } from  'react';
+import React, { Component } from 'react';
 import Spinner from 'react-bootstrap/Spinner'
 
 import Container from 'react-bootstrap/Container';
@@ -11,45 +11,45 @@ import SelectRecipient from './SelectRecipient/SelectRecipient.js';
 import LocationService from '../../services/LocationService'
 import RouteService from '../../services/RouteService'
 
-const  locationService  =  new  LocationService();
-const  routeService  =  new  RouteService();
+const locationService = new LocationService();
+const routeService = new RouteService();
 
-class  Routing  extends  Component {
-  
+class Routing extends Component {
 
-constructor(props) {
-     super(props);
-     this.state  = {
-         locations: [],
-         route: {
-          driver_ids:[],
-          client_ids:[],
-          delivery_limit: '',
-          departure: {
-            location: {},
-          },
-          duration_limit: '',
-         },
-         loading: false,
-         error: '',
-         errorMessage: '',
-         errorDurationColor: '',
-         errorDeliveryColor: '',
-     };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      locations: [],
+      route: {
+        driver_ids: [],
+        client_ids: [],
+        delivery_limit: '',
+        departure: {
+          location: {},
+        },
+        duration_limit: '',
+      },
+      loading: false,
+      error: '',
+      errorMessage: '',
+      errorDurationColor: '',
+      errorDeliveryColor: '',
+    };
 
     //  this.getCenter = this.getCenter.bind(this);
-     this.handleDriverCallback = this.handleDriverCallback.bind(this);
-     this.handleChange = this.handleChange.bind(this);
-     this.handleDuration = this.handleDuration.bind(this);
-     this.handleDeparture = this.handleDeparture.bind(this);
-     this.handleDeliveryLimit = this.handleDeliveryLimit.bind(this);
-     this.getEventValues = this.getEventValues.bind(this);
-     this.handleSubmit = this.handleSubmit.bind(this);
-}
+    this.handleDriverCallback = this.handleDriverCallback.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleDuration = this.handleDuration.bind(this);
+    this.handleDeparture = this.handleDeparture.bind(this);
+    this.handleDeliveryLimit = this.handleDeliveryLimit.bind(this);
+    this.getEventValues = this.getEventValues.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-componentDidMount() {
-  var  self  =  this;
-  locationService.getLocations().then(function (result) {
+  componentDidMount() {
+    var self = this;
+    locationService.getLocations().then(function (result) {
       let defaultLocation = {}
       for (let i = 0; i < result.length; i++) {
         // Set ISC as default address
@@ -58,206 +58,215 @@ componentDidMount() {
           break;
         }
       }
-      
-      self.setState(prevState => ({ 
-          locations:  result,
-          route: {                // object that we want to update
+
+      self.setState(prevState => ({
+        locations: result,
+        route: {                // object that we want to update
           ...prevState.route,     // keep all other key-value pairs
           departure: {
             location: defaultLocation
-        }}})              
-  )});
-}
+          }
+        }
+      })
+      )
+    });
+  }
 
-handleDriverCallback = (event) =>{
-    const newDrivers = event.map( e => e.id)
-    this.setState(prevState => ({
-          route: {               // object that we want to update
-          ...prevState.route,    // keep all other key-value pairs
-          driver_ids : newDrivers
-          }}));
-          console.log(this.state)
-}
-
-handleRecipientCallback = (event) =>{
-  const newRecipients = event.map(e => e.id)
+  handleDriverCallback = (event) => {
+    const newDrivers = event.map(e => e.id)
     this.setState(prevState => ({
       route: {               // object that we want to update
-      ...prevState.route,    // keep all other key-value pairs
-      client_ids : newRecipients
-      }}));
-      console.log(this.state)  
-}
+        ...prevState.route,    // keep all other key-value pairs
+        driver_ids: newDrivers
+      }
+    }));
+    console.log(this.state)
+  }
 
-/**
- * Generic event handler that is called to update the component's state 
- * when the user changes the value of a form field that does not require 
- * special handling.
- * @param {Object} event The event that is triggered on a change of value
- *                          to a generic form field.
- */
- handleChange(event) {
-  let [value, name] = this.getEventValues(event);
-  this.setState(prevState => ({
-    route : {
-    ...prevState.route,
-    name: value}
-  }));
-}
+  handleRecipientCallback = (event) => {
+    const newRecipients = event.map(e => e.id)
+    this.setState(prevState => ({
+      route: {               // object that we want to update
+        ...prevState.route,    // keep all other key-value pairs
+        client_ids: newRecipients
+      }
+    }));
+    console.log(this.state)
+  }
 
-handleDeliveryLimit(event){
-  let [value, name] = this.getEventValues(event);
-  this.setState(prevState => ({
-    route : {
-    ...prevState.route,
-    delivery_limit: value},
-    error: false,
-    errorDurationColor: '',
-    errorDeliveryColor: ''
-  }));
-  this.delivery_limit = value
-}
+  /**
+   * Generic event handler that is called to update the component's state 
+   * when the user changes the value of a form field that does not require 
+   * special handling.
+   * @param {Object} event The event that is triggered on a change of value
+   *                          to a generic form field.
+   */
+  handleChange(event) {
+    let [value, name] = this.getEventValues(event);
+    this.setState(prevState => ({
+      route: {
+        ...prevState.route,
+        name: value
+      }
+    }));
+  }
 
-handleDuration(event){
-  let [value, name] = this.getEventValues(event);
-  this.setState(prevState => ({
-    route : {
-    ...prevState.route,
-    duration_limit: value},
-    error: false,
-    errorDurationColor: '',
-    errorDeliveryColor: ''
-  }));
-  this.duration_limit = value
-}
+  handleDeliveryLimit(event) {
+    let [value, name] = this.getEventValues(event);
+    this.setState(prevState => ({
+      route: {
+        ...prevState.route,
+        delivery_limit: value
+      },
+      error: false,
+      errorDurationColor: '',
+      errorDeliveryColor: ''
+    }));
+    this.delivery_limit = value
+  }
 
-handleDeparture(event){
-  let [value, name] = this.getEventValues(event);
+  handleDuration(event) {
+    let [value, name] = this.getEventValues(event);
+    this.setState(prevState => ({
+      route: {
+        ...prevState.route,
+        duration_limit: value
+      },
+      error: false,
+      errorDurationColor: '',
+      errorDeliveryColor: ''
+    }));
+    this.duration_limit = value
+  }
 
-  let full_location = this.state.locations.filter(function(l){
-    return l.address === value;
-  });
+  handleDeparture(event) {
+    let [value, name] = this.getEventValues(event);
 
-  this.setState(prevState => ({
-    route : {
-    ...prevState.route,
-    departure: {
-      ...prevState.route.departure,
-      location: full_location[0]
+    let full_location = this.state.locations.filter(function (l) {
+      return l.address === value;
+    });
+
+    this.setState(prevState => ({
+      route: {
+        ...prevState.route,
+        departure: {
+          ...prevState.route.departure,
+          location: full_location[0]
+        }
+      }
+    }));
+  }
+
+  /**
+   * This method retrieves the value, name, and id properties of the 
+   * event that has been triggered.
+   * @param {Object} event The event that has been triggered.
+   * @returns The value, name, and id properties of the triggered event.
+   */
+  getEventValues(event) {
+    let [value, name] = [event.target.value, event.target.name];
+    return [value, name];
+  }
+
+  getCenter(location) {
+    if (location.is_center) {
+      return location.address;
     }
-    }}));
-}
-
-/**
- * This method retrieves the value, name, and id properties of the 
- * event that has been triggered.
- * @param {Object} event The event that has been triggered.
- * @returns The value, name, and id properties of the triggered event.
- */
- getEventValues(event) {
-  let [value, name] = [event.target.value, event.target.name];
-  return [value, name];
-}
-
-getCenter(location) {
-  if (location.is_center) {
-    return location.address;
+    return
   }
-  return 
-}
 
-handleSubmit = (event) => {
-  if (this.delivery_limit && this.duration_limit &&  this.delivery_limit && this.duration_limit) {
-    event.preventDefault();
-    this.setState({
-      loading: true,
-      error: false
-    });
-    routeService.createRoute(this.state.route).then(result => {
-      let redirect = "/routeResults/" + result.id 
-      window.open(redirect, "_blank")
+  handleSubmit = (event) => {
+    if (this.delivery_limit && this.duration_limit && this.delivery_limit && this.duration_limit) {
+      event.preventDefault();
       this.setState({
-        loading: false
+        loading: true,
+        error: false
       });
-    });
+      routeService.createRoute(this.state.route).then(result => {
+        let redirect = "/routeResults/" + result.id
+        window.open(redirect, "_blank")
+        this.setState({
+          loading: false
+        });
+      });
+    }
+    else if (!(this.delivery_limit) && !(this.duration_limit)) {
+      this.setState({
+        error: true,
+        errorMessage: 'ERROR: Delivery Limit and Duration are empty',
+        errorDurationColor: 'red',
+        errorDeliveryColor: 'red'
+      })
+    }
+    else if (!(this.duration_limit)) {
+      this.setState({
+        error: true,
+        errorMessage: 'ERROR: Duration is empty',
+        errorDurationColor: 'red'
+      })
+    }
+    else {
+      this.setState({
+        error: true,
+        errorMessage: 'ERROR: Delivery Limit is empty',
+        errorDeliveryColor: 'red'
+      })
+    }
   }
-  else if (!(this.delivery_limit) && !(this.duration_limit)) {
-    this.setState({
-      error: true,
-      errorMessage: 'ERROR: Delivery Limit and Duration are empty',
-      errorDurationColor: 'red',
-      errorDeliveryColor: 'red'
-    })
-  }
-  else if (!(this.duration_limit)) {
-    this.setState({
-      error: true,
-      errorMessage: 'ERROR: Duration is empty',
-      errorDurationColor: 'red'
-    })
-  }
-  else {
-    this.setState({
-      error: true,
-      errorMessage: 'ERROR: Delivery Limit is empty',
-      errorDeliveryColor: 'red'
-    })
-  }
-}
 
 
-render() {
+  render() {
 
     const { handleSubmit, state } = this;
 
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
-        <Row className="mt-4">
-        <Form.Group as={Col} controlId="formGridDeliveryLimit">
-          <Form.Label className="title">Delivery Limit</Form.Label>
-          <Form.Control type="number" placeholder="Driver Delivery Limit" style={{ borderColor: this.state.errorDeliveryColor }}
-                        required onChange={this.handleDeliveryLimit} name="delivery_limit" min="1"/>
-        </Form.Group>
-        <Form.Group as={Col} controlId="formGridDurationLimit">
-          <Form.Label className="title">Duration</Form.Label>
-          <Form.Control type="number" placeholder="Duration Limit in Hours" style={{ borderColor: this.state.errorDurationColor }} 
-                        required onChange={this.handleDuration} name="duration_limit" min="1"/>
-        </Form.Group> 
-        <Form.Group as={Col} controlId="formGridDeparture">
-          <Form.Label className="title">Departure Location</Form.Label>
-          <Form.Select value={this.state.route.departure.location.address} 
-            onChange={this.handleDeparture} name="departure_location" required>
-          { this.state.locations.map( l => {
+          <Row className="mt-4">
+            <Form.Group as={Col} controlId="formGridDeliveryLimit">
+              <Form.Label className="title">Delivery Limit</Form.Label>
+              <Form.Control type="number" placeholder="Driver Delivery Limit" style={{ borderColor: this.state.errorDeliveryColor }}
+                required onChange={this.handleDeliveryLimit} name="delivery_limit" min="1" />
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridDurationLimit">
+              <Form.Label className="title">Duration</Form.Label>
+              <Form.Control type="number" placeholder="Duration Limit in Hours" style={{ borderColor: this.state.errorDurationColor }}
+                required onChange={this.handleDuration} name="duration_limit" min="1" />
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridDeparture">
+              <Form.Label className="title">Departure Location</Form.Label>
+              <Form.Select value={this.state.route.departure.location.address}
+                onChange={this.handleDeparture} name="departure_location" required>
+                {this.state.locations.map(l => {
                   if (this.getCenter(l)) {
                     return <option>{this.getCenter(l)}</option>
                   }
                   return ""
                 }
-                
-          )}
 
-          </Form.Select>
-        </Form.Group>
-        </Row>  
-          
-        <br/>
-        <SelectDriver parentCallback = {this.handleDriverCallback}/>
-        <SelectRecipient parentCallback = {this.handleRecipientCallback} />
-       
-        <Button className="mr-2 mt-4 btn" variant="primary" disabled={this.state.loading}
-                onClick={handleSubmit}>
-                  {this.state.loading ?  
-                    <Spinner
-                      animation="border" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </Spinner> : "Create Route"}
-        </Button>
-        {this.state.error ? 
-                    <h3 className='error' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorMessage } </h3> : ""}
-        </Form> 
+                )}
+
+              </Form.Select>
+            </Form.Group>
+          </Row>
+
+          <br />
+          <SelectDriver parentCallback={this.handleDriverCallback} />
+          <SelectRecipient parentCallback={this.handleRecipientCallback} />
+
+          <Button className="mr-2 mt-4 btn" variant="primary" disabled={this.state.loading}
+            onClick={handleSubmit}>
+            {this.state.loading ?
+              <Spinner
+                animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner> : "Create Route"}
+          </Button>
+          {this.state.error ?
+            <h3 className='error' style={{ fontSize: 20, color: "red", marginTop: 10 }}> {this.state.errorMessage} </h3> : ""}
+        </Form>
       </Container>
     );
   }
 }
-export  default  Routing;
+export default Routing;

@@ -3,7 +3,7 @@
  * for based on the current information entered into the search field(s) on
  * the Data page.
  */
- export default class SearchService{
+export default class SearchService {
 
     /**
      * This method uses two parameters - an event object that is triggered 
@@ -20,20 +20,20 @@
     findDrivers(event, drivers) {
         let currentList = drivers;
         let newList = []
-    
+
         if (event.target.value) {
             newList = currentList.filter(item => {
                 let driverId = item.id;
                 let fName = item.first_name.toLowerCase();
                 let lName = item.last_name.toLowerCase();
-                let fullName = fName + " " + lName 
+                let fullName = fName + " " + lName
                 let formalName = lName + ", " + fName
                 let phone = item.phone;
                 let emp_status = item.employee_status.toLowerCase();
                 const filter = event.target.value.toLowerCase();
-                return driverId.toString().includes(filter) | fullName.includes(filter) 
-                        | formalName.includes(filter) | phone.toString().includes(filter) 
-                        | emp_status.includes(filter);
+                return driverId.toString().includes(filter) | fullName.includes(filter)
+                    | formalName.includes(filter) | phone.toString().includes(filter)
+                    | emp_status.includes(filter);
             });
         }
         else {
@@ -54,27 +54,27 @@
      * @returns A list of recipients that have at least one data field matching 
      *          the value entered into the search box.
      */
-     findRecipients(event, recipients) {
+    findRecipients(event, recipients) {
         let currentList = recipients;
         let newList = []
-    
+
         if (event.target.value) {
             newList = currentList.filter(item => {
                 let recipientId = item.id.toString();
                 let fName = item.first_name.toLowerCase();
                 let lName = item.last_name.toLowerCase();
-                let fullName = fName + " " + lName 
+                let fullName = fName + " " + lName
                 let formalName = lName + ", " + fName
                 let phone = item.phone.toString();
                 let address = item.location.address.toLowerCase()
-                let city = item.location.city.toLowerCase() 
+                let city = item.location.city.toLowerCase()
                 let zip = item.location.zipcode.toString()
                 let isCenter = item.location.is_center
                 const filter = event.target.value.toLowerCase();
-                return (recipientId.includes(filter) | fullName.includes(filter) 
-                        | formalName.includes(filter) | phone.includes(filter) 
-                        | address.includes(filter) 
-                        | city.includes(filter) | zip.includes(filter));
+                return (recipientId.includes(filter) | fullName.includes(filter)
+                    | formalName.includes(filter) | phone.includes(filter)
+                    | address.includes(filter)
+                    | city.includes(filter) | zip.includes(filter));
             });
         }
         else {

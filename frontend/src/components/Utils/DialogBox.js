@@ -6,16 +6,16 @@ import PropTypes from 'prop-types';
 export class DialogBox extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {show: false};
+        this.state = { show: false };
     }
 
 
-    render () {
+    render() {
         return (
             <>
-                <Modal 
-                    show={this.props.show} 
-                    onHide={this.props.handleClose} 
+                <Modal
+                    show={this.props.show}
+                    onHide={this.props.handleClose}
                     aria-labelledby="contained-modal-title-vcenter"
                     centered>
                     <Modal.Header closeButton>

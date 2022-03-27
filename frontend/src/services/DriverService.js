@@ -36,12 +36,12 @@ export default class DriverService {
      * @returns A response code indicating success or failure of the HTTP
      *          deletion request.
      */
-    deleteDriver(driver){
+    deleteDriver(driver) {
         const url = `${API_URL}/api/drivers/${driver.id}/`;
         return axios.delete(url);
     }
 
-    uploadDrivers(drivers){
+    uploadDrivers(drivers) {
         const url = `${API_URL}/api/drivers/`;
         if (drivers.length > 0) {
             // console.log('Saving File to ' + url);
@@ -63,10 +63,10 @@ export default class DriverService {
      * @returns A JSON object of the driver that has been created, or 
      *          an error message if the request fails.
      */
-    createDriver(driver){
+    createDriver(driver) {
         const url = `${API_URL}/api/drivers/`;
         console.log(driver);
-        return axios.post(url,driver).then(response => {
+        return axios.post(url, driver).then(response => {
             console.log(response.status);
             console.log(response.data);
         });
@@ -80,8 +80,8 @@ export default class DriverService {
      * @returns A JSON object of the driver that has been updated, or 
      *          an error message if the request fails.
      */
-    updateDriver(driver){
+    updateDriver(driver) {
         const url = `${API_URL}/api/drivers/${driver.id}/`;
-        return axios.put(url,driver);
+        return axios.put(url, driver);
     }
 }

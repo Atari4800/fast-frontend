@@ -25,220 +25,223 @@ const fileService = new FileService();
  */
 class Driver extends Component {
 
-  /**
- * The constructor method initializes the component's state object and
- * binds the methods of the component to the current instance.
- * @param {Object} props The properties passed to the component.
- */
-constructor(props) {
-    super(props);
-    this.state = {
-        drivers: [],
-        filtered: [],
-        fileContent: [],
-        new_drivers: [],
-        show: false,
-        driverToDelete: {},
-        sorted: false
-    };
-    this.fileInput = React.createRef();
-    this.handleDriverDelete = this.handleDriverDelete.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.readFile = this.readFile.bind(this);
-    this.refreshDrivers = this.refreshDrivers.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handleSave = this.handleSave.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.sortColumn = this.sortColumn.bind(this);
-}
-  
-/**
- * Life cycle hook that is called after the component is first rendered.
- */
-componentDidMount() {
-    var  self  =  this;
-    driverService.getDrivers().then(function (result) {
-        self.setState({ drivers:  result, filtered: result});
-    });
-}
-
-refreshDrivers(){
-    var self = this;
-    driverService.getDrivers().then(function (result) {
-        self.setState({ drivers: result, filtered: result });
-    });
-}
-
-sortColumn(key) {
-    const isSorted = this.state.sorted;
-    if (key === 'firstname') {
-        if (this.state.sorted) {
-            this.state.drivers.sort((driver1, driver2) => {return driver2.first_name.localeCompare(driver1.first_name)});
-        } else {
-            this.state.drivers.sort((driver1, driver2) => {return driver1.first_name.localeCompare(driver2.first_name)});
-        }
-    } else if (key === 'lastname') {
-        if (this.state.sorted) {
-            this.state.drivers.sort((driver1, driver2) => {return driver2.last_name.localeCompare(driver1.last_name)});
-        } else {
-            this.state.drivers.sort((driver1, driver2) => {return driver1.last_name.localeCompare(driver2.last_name)});
-        }
-    } else if (key === 'phone') {
-        if (this.state.sorted) {
-            this.state.drivers.sort((driver1, driver2) => {return driver2.phone.localeCompare(driver1.phone)});
-        } else {
-            this.state.drivers.sort((driver1, driver2) => {return driver1.phone.localeCompare(driver2.phone)});
-        }
+    /**
+   * The constructor method initializes the component's state object and
+   * binds the methods of the component to the current instance.
+   * @param {Object} props The properties passed to the component.
+   */
+    constructor(props) {
+        super(props);
+        this.state = {
+            drivers: [],
+            filtered: [],
+            fileContent: [],
+            new_drivers: [],
+            show: false,
+            driverToDelete: {},
+            sorted: false
+        };
+        this.fileInput = React.createRef();
+        this.handleDriverDelete = this.handleDriverDelete.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.readFile = this.readFile.bind(this);
+        this.refreshDrivers = this.refreshDrivers.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+        this.handleShow = this.handleShow.bind(this);
+        this.sortColumn = this.sortColumn.bind(this);
     }
-    this.setState({drivers: this.state.drivers, sorted: !isSorted});
-}
 
-handleClose() {
-    this.setState({show: false});
-}
-
-handleSave() {
-    this.handleClose();
-    this.handleDriverDelete(this.state.driverToDelete);
-    this.setState({driverToDelete: {}});
-}
-
-handleShow(e, d) {
-    e.preventDefault();
-    this.setState({show: true, driverToDelete: d});
-}
-
-/**
- * Event handler used to delete a driver from the database when the 
- * user clicks on the delete button.
- * @param {Object} d The driver object to be deleted.
- */
-handleDriverDelete(d) {
-    var self = this;
-    driverService.deleteDriver(d).then(() => {
-        var newArr = self.state.drivers.filter(function (obj) {
-            return obj.id !== d.id;
+    /**
+     * Life cycle hook that is called after the component is first rendered.
+     */
+    componentDidMount() {
+        var self = this;
+        driverService.getDrivers().then(function (result) {
+            self.setState({ drivers: result, filtered: result });
         });
-        self.setState({ drivers: newArr, filtered: newArr })
-    });
-}
-
-get_availability(availability_list) {
-    let availability_template = {'sunday': false, 'monday': false, 'tuesday': false, 'wednesday': false, 
-        'thursday': false, 'friday': false, 'saturday': false };
-    for (var index in availability_list) {
-        let day = availability_list[index].trim().toLowerCase();
-        availability_template[day] = true;
     }
-    return availability_template;
-}
 
-/**
- * Event handler method called when the user enters a value into the 
- * driver search box.
- * @param {Object} e The event triggered when a user enters information
- *                      into the search field.
- */
-handleSearch(e) {
-    let newList = searchService.findDrivers(e, this.state.drivers);
-    this.setState({
-        filtered: newList
-    });
-}
+    refreshDrivers() {
+        var self = this;
+        driverService.getDrivers().then(function (result) {
+            self.setState({ drivers: result, filtered: result });
+        });
+    }
 
-get_phone(phone) {
-    if (phone.length > 0) {
-        phone = phone.trim();
-        phone = phone.replaceAll(/['\D']/g, '');
-        if (phone.length === 10) {
-            phone = phone.slice(0, 3) + '-' + phone.slice(3, 6) + '-' + phone.slice(6);
-        } else {
-            phone = '';
+    sortColumn(key) {
+        const isSorted = this.state.sorted;
+        if (key === 'firstname') {
+            if (this.state.sorted) {
+                this.state.drivers.sort((driver1, driver2) => { return driver2.first_name.localeCompare(driver1.first_name) });
+            } else {
+                this.state.drivers.sort((driver1, driver2) => { return driver1.first_name.localeCompare(driver2.first_name) });
+            }
+        } else if (key === 'lastname') {
+            if (this.state.sorted) {
+                this.state.drivers.sort((driver1, driver2) => { return driver2.last_name.localeCompare(driver1.last_name) });
+            } else {
+                this.state.drivers.sort((driver1, driver2) => { return driver1.last_name.localeCompare(driver2.last_name) });
+            }
+        } else if (key === 'phone') {
+            if (this.state.sorted) {
+                this.state.drivers.sort((driver1, driver2) => { return driver2.phone.localeCompare(driver1.phone) });
+            } else {
+                this.state.drivers.sort((driver1, driver2) => { return driver1.phone.localeCompare(driver2.phone) });
+            }
         }
+        this.setState({ drivers: this.state.drivers, sorted: !isSorted });
     }
-    return phone
-}
 
-capitalize(str) {
-    if (typeof(str) == 'string') {
-        if (str.length > 0) {
-            str = str.toLowerCase();
-            str = str.charAt(0).toUpperCase() + str.slice(1);
+    handleClose() {
+        this.setState({ show: false });
+    }
+
+    handleSave() {
+        this.handleClose();
+        this.handleDriverDelete(this.state.driverToDelete);
+        this.setState({ driverToDelete: {} });
+    }
+
+    handleShow(e, d) {
+        e.preventDefault();
+        this.setState({ show: true, driverToDelete: d });
+    }
+
+    /**
+     * Event handler used to delete a driver from the database when the 
+     * user clicks on the delete button.
+     * @param {Object} d The driver object to be deleted.
+     */
+    handleDriverDelete(d) {
+        var self = this;
+        driverService.deleteDriver(d).then(() => {
+            var newArr = self.state.drivers.filter(function (obj) {
+                return obj.id !== d.id;
+            });
+            self.setState({ drivers: newArr, filtered: newArr })
+        });
+    }
+
+    get_availability(availability_list) {
+        let availability_template = {
+            'sunday': false, 'monday': false, 'tuesday': false, 'wednesday': false,
+            'thursday': false, 'friday': false, 'saturday': false
+        };
+        for (var index in availability_list) {
+            let day = availability_list[index].trim().toLowerCase();
+            availability_template[day] = true;
         }
+        return availability_template;
     }
-    return str;
-}
 
-get_languages(languages_list) {
-    var languages = [];
-    for (var index in languages_list) {
-        let language_template = {};
-        let language = this.capitalize(languages_list[index].trim());
-        language_template.name = language;
-        languages.push(language_template);
-    }
-    return languages;
-}
-
-readFile(event) {
-    const file = event.target.files[0];
-    const promise = fileService.readFile(file);
-    let drivers = [];
-
-    promise.then((data) => {
+    /**
+     * Event handler method called when the user enters a value into the 
+     * driver search box.
+     * @param {Object} e The event triggered when a user enters information
+     *                      into the search field.
+     */
+    handleSearch(e) {
+        let newList = searchService.findDrivers(e, this.state.drivers);
         this.setState({
-            fileContent: data
+            filtered: newList
         });
+    }
 
-        for(var row in data) {
-            let driver_template = {
-                'user': '', 'first_name': '', 'last_name': '', 'capacity': '1', 'employee_status': '', 
-                'phone': '', 'availability': {}, 'languages': []};
-            
-            var driver_data = data[row];
-            let keys = Object.keys(driver_data)
-            for (var index in keys) {
-                let key = keys[index];
-                let value = driver_data[key];
-                delete driver_data[key];
-                driver_data[key.toLowerCase()] = value;
-            }
-            console.log(driver_data);
-            keys = Object.keys(driver_data);
-            if (keys.includes('firstname')) {
-                driver_template.first_name = driver_data.firstname.trim();
+    get_phone(phone) {
+        if (phone.length > 0) {
+            phone = phone.trim();
+            phone = phone.replaceAll(/['\D']/g, '');
+            if (phone.length === 10) {
+                phone = phone.slice(0, 3) + '-' + phone.slice(3, 6) + '-' + phone.slice(6);
             } else {
-                driver_template.first_name = " ";
+                phone = '';
             }
-            
-            if (keys.includes('lastname')) {
-                driver_template.last_name = driver_data.lastname.trim();
-            } else {
-                driver_template.last_name = " ";
-            }
-            driver_template.capacity = String(driver_data.capacity);
-            let employee_status = driver_data.role.toLowerCase().trim();
-            if (employee_status === 'volunteer') {
-                driver_template.employee_status = 'Volunteer';
-            } else {
-                driver_template.employee_status = 'Employee';
-            }
-            driver_template.availability = this.get_availability(driver_data.availability.split(','));
-            driver_template.languages = this.get_languages(driver_data.language.split(','));
-            driver_template.phone = this.get_phone(driver_data.phone.trim());
-            drivers.push(driver_template);
         }
-        console.log(drivers);
-        this.setState({
-            new_drivers: JSON.stringify(drivers)
-        });
-    });
-}
+        return phone
+    }
 
-  /**
- * The render method used to display the component. 
- * @returns The HTML to be rendered.
- */
+    capitalize(str) {
+        if (typeof (str) == 'string') {
+            if (str.length > 0) {
+                str = str.toLowerCase();
+                str = str.charAt(0).toUpperCase() + str.slice(1);
+            }
+        }
+        return str;
+    }
+
+    get_languages(languages_list) {
+        var languages = [];
+        for (var index in languages_list) {
+            let language_template = {};
+            let language = this.capitalize(languages_list[index].trim());
+            language_template.name = language;
+            languages.push(language_template);
+        }
+        return languages;
+    }
+
+    readFile(event) {
+        const file = event.target.files[0];
+        const promise = fileService.readFile(file);
+        let drivers = [];
+
+        promise.then((data) => {
+            this.setState({
+                fileContent: data
+            });
+
+            for (var row in data) {
+                let driver_template = {
+                    'user': '', 'first_name': '', 'last_name': '', 'capacity': '1', 'employee_status': '',
+                    'phone': '', 'availability': {}, 'languages': []
+                };
+
+                var driver_data = data[row];
+                let keys = Object.keys(driver_data)
+                for (var index in keys) {
+                    let key = keys[index];
+                    let value = driver_data[key];
+                    delete driver_data[key];
+                    driver_data[key.toLowerCase()] = value;
+                }
+                console.log(driver_data);
+                keys = Object.keys(driver_data);
+                if (keys.includes('firstname')) {
+                    driver_template.first_name = driver_data.firstname.trim();
+                } else {
+                    driver_template.first_name = " ";
+                }
+
+                if (keys.includes('lastname')) {
+                    driver_template.last_name = driver_data.lastname.trim();
+                } else {
+                    driver_template.last_name = " ";
+                }
+                driver_template.capacity = String(driver_data.capacity);
+                let employee_status = driver_data.role.toLowerCase().trim();
+                if (employee_status === 'volunteer') {
+                    driver_template.employee_status = 'Volunteer';
+                } else {
+                    driver_template.employee_status = 'Employee';
+                }
+                driver_template.availability = this.get_availability(driver_data.availability.split(','));
+                driver_template.languages = this.get_languages(driver_data.language.split(','));
+                driver_template.phone = this.get_phone(driver_data.phone.trim());
+                drivers.push(driver_template);
+            }
+            console.log(drivers);
+            this.setState({
+                new_drivers: JSON.stringify(drivers)
+            });
+        });
+    }
+
+    /**
+   * The render method used to display the component. 
+   * @returns The HTML to be rendered.
+   */
     render() {
         return (
             <Container className="card">
@@ -248,7 +251,7 @@ readFile(event) {
                             <Col sm={2} className="table-title title">Drivers</Col>
                             <Col sm={8} class="mt-3">
                                 <InputGroup class="mb-2">
-                                    <InputGroup.Text/>
+                                    <InputGroup.Text />
                                     <FormControl
                                         type="text"
                                         placeholder="Search Drivers"
@@ -272,10 +275,10 @@ readFile(event) {
                             <tr>
                                 <th>
                                     <Stack direction='horizontal' gap={3}>
-                                        <div >First Name</div> 
+                                        <div >First Name</div>
                                         <div className='ms-auto'>
-                                            <Button 
-                                                variant='outline-secondary' 
+                                            <Button
+                                                variant='outline-secondary'
                                                 size='sm'
                                                 onClick={() => this.sortColumn('firstname')}
                                             >&#8693;</Button>
@@ -283,14 +286,14 @@ readFile(event) {
                                     </Stack>
                                 </th>
                                 <th>
-                                <Stack direction='horizontal' gap={3}>
-                                        <div >Last Name</div> 
+                                    <Stack direction='horizontal' gap={3}>
+                                        <div >Last Name</div>
                                         <div className='ms-auto'>
-                                            <Button 
-                                                variant='outline-secondary' 
-                                                size='sm' 
+                                            <Button
+                                                variant='outline-secondary'
+                                                size='sm'
                                                 onClick={() => this.sortColumn('lastname')}
-                                                >&#8693;</Button>
+                                            >&#8693;</Button>
                                         </div>
                                     </Stack>
                                 </th>
@@ -298,11 +301,11 @@ readFile(event) {
                                     <Stack direction='horizontal' gap={3}>
                                         <div >Phone Number</div>
                                         <div className='ms-auto'>
-                                            <Button 
-                                                variant='outline-secondary' 
+                                            <Button
+                                                variant='outline-secondary'
                                                 size='sm'
                                                 onClick={() => this.sortColumn('phone')}
-                                                >&#8693;</Button>
+                                            >&#8693;</Button>
                                         </div>
                                     </Stack>
                                 </th>
@@ -319,8 +322,8 @@ readFile(event) {
                                         <Button className="mr-2" href={"/driverDetail/" + d.id} variant='primary'>View</Button>
                                         <Button className="mr-2" href={"/updateDriver/" + d.id} variant='primary'>Edit</Button>
                                         <Button onClick={(e) => this.handleShow(e, d)} variant='primary'> Delete</Button>
-                                        <DialogBox 
-                                            show={this.state.show} 
+                                        <DialogBox
+                                            show={this.state.show}
                                             modalTitle='Confirm Deletion'
                                             mainMessageText='Are you sure you want to delete this entry?'
                                             handleClose={this.handleClose}
@@ -343,7 +346,7 @@ readFile(event) {
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Control type="file" onChange={(e) => {
                                     this.readFile(e);
-                                }} ref= {this.fileInput} accept='.csv, .xls, .xlsx'/>
+                                }} ref={this.fileInput} accept='.csv, .xls, .xlsx' />
                             </Form.Group>
                         </Row>
                     </Col>
@@ -364,6 +367,6 @@ readFile(event) {
                 </Row>
             </Container>
         );
-    }  
+    }
 }
 export default Driver;

@@ -5,7 +5,7 @@ const API_URL = 'http://127.0.0.1:8000';
  * This class provides a method to connect to the backend database
  * for the retrieval of all locations stored in the database.
  */
-export default class DriverService{
+export default class DriverService {
 
     /**
      * This method connects to the backend database to
