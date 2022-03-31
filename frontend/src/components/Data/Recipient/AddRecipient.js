@@ -288,7 +288,7 @@ render() {
                 </Form.Group>
 
                 <Button variant="primary" className="mr-4" type="submit">Submit</Button>
-                <Link to="/Data">
+                <Link to="/data">
                     <Button variant="secondary">Cancel</Button>
                 </Link>
             </Form>

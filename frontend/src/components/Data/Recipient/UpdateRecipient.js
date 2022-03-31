@@ -319,7 +319,7 @@ render() {
                 <Button variant="primary" className="mr-4" 
                     onClick={this.handleSubmit}>Submit
                 </Button>
-                <Link to="/Data">
+                <Link to="/data">
                     <Button variant="secondary">Return</Button>
                 </Link>
                 {this.state.saved ?
