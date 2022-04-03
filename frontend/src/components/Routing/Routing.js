@@ -33,6 +33,8 @@ constructor(props) {
          loading: false,
          error: '',
          errorMessage: '',
+         errorDriRec: '',
+         errorDriRecMessage: '',
          errorDurationColor: '',
          errorDeliveryColor: '',
      };
@@ -77,6 +79,9 @@ handleDriverCallback = (event) =>{
           driver_ids : newDrivers
           }}));
           console.log(this.state)
+    this.setState({
+      errorDriRec: false
+    })
 }
 
 handleRecipientCallback = (event) =>{
@@ -87,6 +92,9 @@ handleRecipientCallback = (event) =>{
       client_ids : newRecipients
       }}));
       console.log(this.state)  
+    this.setState({
+      errorDriRec: false
+    })
 }
 
 /**
@@ -167,7 +175,9 @@ getCenter(location) {
 }
 
 handleSubmit = (event) => {
-  if (this.delivery_limit && this.duration_limit &&  this.delivery_limit && this.duration_limit) {
+  let driverLength = this.state.route.driver_ids.length
+  let recipientLength = this.state.route.client_ids.length
+  if (this.delivery_limit && this.duration_limit &&  this.delivery_limit && this.duration_limit && driverLength > 0 && recipientLength > 0) {
     event.preventDefault();
     this.setState({
       loading: true,
@@ -196,11 +206,29 @@ handleSubmit = (event) => {
       errorDurationColor: 'red'
     })
   }
-  else {
+  else if (!(this.delivery_limit)) {
     this.setState({
       error: true,
       errorMessage: 'ERROR: Delivery Limit is empty',
       errorDeliveryColor: 'red'
+    })
+  }
+  if (driverLength === 0 && recipientLength === 0) {
+    this.setState({
+      errorDriRec: true,
+      errorDriRecMessage: 'ERROR: No Driver(s) or Recipient(s) selected'
+    })
+  }
+  else if (driverLength === 0) {
+    this.setState({
+      errorDriRec: true,
+      errorDriRecMessage: "ERROR: No Driver(s) selected"
+    })
+  }
+  else if (recipientLength === 0) {
+    this.setState({
+      errorDriRec: true,
+      errorDriRecMessage: "ERROR: No Recipient(s) selected"
     })
   }
 }
@@ -255,6 +283,8 @@ render() {
         </Button>
         {this.state.error ? 
                     <h3 className='error' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorMessage } </h3> : ""}
+        {this.state.errorDriRec ?
+                    <h3 className='errorDriRec' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorDriRecMessage } </h3> : ""}
         </Form> 
       </Container>
     );
