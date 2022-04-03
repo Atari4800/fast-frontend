@@ -3,6 +3,7 @@ import './Home.css'
 function Home() {
     return (
         <div class="content">
+            <img src="FastRoutingLogo.png" alt="" class="image"/>
             <h1 style={{color:"blue",textAlign:"center"}} >About</h1><br />
             <p style={{textAlign:"center", paddingLeft:"400px", paddingRight:"400px"}}>This App can be used to create a multiple vehicle route delivery. By inputting the data of your drivers and recipients, 
                 this app will use Bing Maps to create an optimized route for your drivers to follow, as well as allow you to view a map 
