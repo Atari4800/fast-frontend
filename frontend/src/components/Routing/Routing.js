@@ -46,6 +46,8 @@ constructor(props) {
      this.handleDeparture = this.handleDeparture.bind(this);
      this.handleDeliveryLimit = this.handleDeliveryLimit.bind(this);
      this.getEventValues = this.getEventValues.bind(this);
+     this.handleDurDelError = this.handleDurDelError.bind(this);
+     this.handleDriRecError = this.handleDriRecError.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
 }
 
@@ -173,25 +175,9 @@ getCenter(location) {
   }
   return 
 }
-
-handleSubmit = (event) => {
-  let driverLength = this.state.route.driver_ids.length
-  let recipientLength = this.state.route.client_ids.length
-  if (this.delivery_limit && this.duration_limit &&  this.delivery_limit && this.duration_limit && driverLength > 0 && recipientLength > 0) {
-    event.preventDefault();
-    this.setState({
-      loading: true,
-      error: false
-    });
-    routeService.createRoute(this.state.route).then(result => {
-      let redirect = "/routeResults/" + result.id 
-      window.open(redirect, "_blank")
-      this.setState({
-        loading: false
-      });
-    });
-  }
-  else if (!(this.delivery_limit) && !(this.duration_limit)) {
+  
+handleDurDelError() {
+  if (!(this.delivery_limit) && !(this.duration_limit)) {
     this.setState({
       error: true,
       errorMessage: 'ERROR: Delivery Limit and Duration are empty',
@@ -213,6 +199,11 @@ handleSubmit = (event) => {
       errorDeliveryColor: 'red'
     })
   }
+}
+
+handleDriRecError() {
+  let driverLength = this.state.route.driver_ids.length
+  let recipientLength = this.state.route.client_ids.length
   if (driverLength === 0 && recipientLength === 0) {
     this.setState({
       errorDriRec: true,
@@ -231,6 +222,27 @@ handleSubmit = (event) => {
       errorDriRecMessage: "ERROR: No Recipient(s) selected"
     })
   }
+}
+
+handleSubmit = (event) => {
+  let driverLength = this.state.route.driver_ids.length
+  let recipientLength = this.state.route.client_ids.length
+  if (this.delivery_limit && this.duration_limit &&  this.delivery_limit && this.duration_limit && driverLength > 0 && recipientLength > 0) {
+    event.preventDefault();
+    this.setState({
+      loading: true,
+      error: false
+    });
+    routeService.createRoute(this.state.route).then(result => {
+      let redirect = "/routeResults/" + result.id 
+      window.open(redirect, "_blank")
+      this.setState({
+        loading: false
+      });
+    });
+  }
+  this.handleDurDelError()
+  this.handleDriRecError();
 }
 
 
@@ -278,7 +290,6 @@ render() {
                   {this.state.loading ?  
                     <Spinner
                       animation="border" role="status">
-                      <span className="visually-hidden">Loading...</span>
                     </Spinner> : "Create Route"}
         </Button>
         {this.state.error ? 
