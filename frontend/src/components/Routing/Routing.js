@@ -31,8 +31,8 @@ constructor(props) {
           duration_limit: '',
          },
          loading: false,
-         error: '',
-         errorMessage: '',
+         errorDurDel: '',
+         errorDurDelMessage: '',
          errorDriRec: '',
          errorDriRecMessage: '',
          errorDurationColor: '',
@@ -121,7 +121,7 @@ handleDeliveryLimit(event){
     route : {
     ...prevState.route,
     delivery_limit: value},
-    error: false,
+    errorDurDel: false,
     errorDurationColor: '',
     errorDeliveryColor: ''
   }));
@@ -134,7 +134,7 @@ handleDuration(event){
     route : {
     ...prevState.route,
     duration_limit: value},
-    error: false,
+    errorDurDel: false,
     errorDurationColor: '',
     errorDeliveryColor: ''
   }));
@@ -179,23 +179,23 @@ getCenter(location) {
 handleDurDelError() {
   if (!(this.delivery_limit) && !(this.duration_limit)) {
     this.setState({
-      error: true,
-      errorMessage: 'ERROR: Delivery Limit and Duration are empty',
+      errorDurDel: true,
+      errorDurDelMessage: 'ERROR: Delivery Limit and Duration are empty',
       errorDurationColor: 'red',
       errorDeliveryColor: 'red'
     })
   }
   else if (!(this.duration_limit)) {
     this.setState({
-      error: true,
-      errorMessage: 'ERROR: Duration is empty',
+      errorDurDel: true,
+      errorDurDelMessage: 'ERROR: Duration is empty',
       errorDurationColor: 'red'
     })
   }
   else if (!(this.delivery_limit)) {
     this.setState({
-      error: true,
-      errorMessage: 'ERROR: Delivery Limit is empty',
+      errorDurDel: true,
+      errorDurDelMessage: 'ERROR: Delivery Limit is empty',
       errorDeliveryColor: 'red'
     })
   }
@@ -231,7 +231,8 @@ handleSubmit = (event) => {
     event.preventDefault();
     this.setState({
       loading: true,
-      error: false
+      errorDurDel: false,
+      errorDriRec: false
     });
     routeService.createRoute(this.state.route).then(result => {
       let redirect = "/routeResults/" + result.id 
@@ -295,7 +296,7 @@ render() {
                     </Spinner> : "Create Route"}
         </Button>
         {this.state.error ? 
-                    <h3 className='error' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorMessage } </h3> : ""}
+                    <h3 className='errorDurDel' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorDurDelMessage } </h3> : ""}
         {this.state.errorDriRec ?
                     <h3 className='errorDriRec' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorDriRecMessage } </h3> : ""}
         </Form> 
