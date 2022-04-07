@@ -227,7 +227,7 @@ handleDriRecError() {
 handleSubmit = (event) => {
   let driverLength = this.state.route.driver_ids.length
   let recipientLength = this.state.route.client_ids.length
-  if (this.delivery_limit && this.duration_limit &&  this.delivery_limit && this.duration_limit && driverLength > 0 && recipientLength > 0) {
+  if (this.delivery_limit && this.duration_limit && driverLength > 0 && recipientLength > 0) {
     event.preventDefault();
     this.setState({
       loading: true,
@@ -241,8 +241,10 @@ handleSubmit = (event) => {
       });
     });
   }
-  this.handleDurDelError()
-  this.handleDriRecError();
+  else {
+    this.handleDurDelError();
+    this.handleDriRecError();
+  }
 }
 
 
