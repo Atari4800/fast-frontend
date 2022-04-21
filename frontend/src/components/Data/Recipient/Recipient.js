@@ -38,16 +38,21 @@ class Recipient extends Component {
             fileContent: [],
             new_recipients: [],
             show: false,
+            allShow: false,
             recipientToDelete: {},
+            allRecipientsDelete: [],
             sorted: false
         };
         this.fileInput = React.createRef();
         this.handleRecipientDelete = this.handleRecipientDelete.bind(this);
+        this.handleAllRecipientsDelete = this.handleAllRecipientsDelete.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.readFile = this.readFile.bind(this);
+        this.refreshRecipients = this.refreshRecipients.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleShow = this.handleShow.bind(this);
+        this.handleAllShow = this.handleAllShow.bind(this);
     }
 
     /**
@@ -98,18 +103,32 @@ class Recipient extends Component {
     }
 
     handleClose() {
-        this.setState({show: false});
+        this.setState({show: false, allShow: false});
     }
     
+    // For deleting 1 or all recipients
     handleSave() {
         this.handleClose();
-        this.handleRecipientDelete(this.state.recipientToDelete);
-        this.setState({recipientToDelete: {}});
+        if (this.state.show) {
+            this.handleRecipientDelete(this.state.recipientToDelete);
+            this.setState({recipientToDelete: {}});
+        }
+        else if (this.state.allShow) {
+            this.handleAllRecipientsDelete(this.state.allRecipientsDelete);
+            this.setState({ allRecipientsDelete: [] });
+        }
     }
     
-    handleShow(e, d) {
+    // For deleting 1 recipients
+    handleShow(e, r) {
         e.preventDefault();
-        this.setState({show: true, recipientToDelete: d});
+        this.setState({show: true, recipientToDelete: r});
+    }
+    
+    // For deleting all recipients
+    handleAllShow(e, r) {
+        e.preventDefault();
+        this.setState({allShow: true, allRecipientsDelete: r});
     }
 
 /**
@@ -123,9 +142,20 @@ handleRecipientDelete(r){
         var  newArr  =  self.state.recipients.filter(function(obj) {
             return  obj.id  !==  r.id;
         });
-
         self.setState({recipients:  newArr, filtered: newArr})
     });
+}
+
+/**
+* Event handler used to delete all recipients from the database when the 
+* user clicks on the delete all button.
+* @param {Object} r The recipients object to be deleted.
+*/
+handleAllRecipientsDelete(r) {
+    var self = this;
+    for (var i = 0; i < r.length; i++) {
+        this.handleRecipientDelete(r[i]);
+    }
 }
 
 /**
@@ -265,8 +295,19 @@ handleRecipientDelete(r){
                                     ></FormControl>
                                 </InputGroup>
                             </Col>
-                            <Col sm={2} className="justify-content-end d-flex flex-row">
-                                <Button href="/addRecipient">Add New</Button>
+                            <Col sm={2} className="justify-content-around d-flex flex-row">
+                                <Button href="/addRecipient" style={{ marginRight: 2.5 }}>Add New</Button>
+                                <Button onClick={(e) => this.handleAllShow(e, searchService.findRecipients(e, this.state.recipients))} style={{ marginLeft: 2.5 }}>Delete All</Button>
+                                <DialogBox 
+                                    show={this.state.allShow} 
+                                    modalTitle='Confirm Deletion'
+                                    mainMessageText='Are you sure you want to delete all entries?'
+                                    handleClose={this.handleClose}
+                                    handleSave={this.handleSave}
+                                    closeText='Cancel'
+                                    saveText='Delete'
+                                    buttonType='danger'
+                                />
                             </Col>
                         </Row>
                     </Col>
