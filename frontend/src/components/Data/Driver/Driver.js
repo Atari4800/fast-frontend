@@ -38,17 +38,21 @@ constructor(props) {
         fileContent: [],
         new_drivers: [],
         show: false,
+        allShow: false,
         driverToDelete: {},
+        allDriversDelete: [],
         sorted: false
     };
     this.fileInput = React.createRef();
     this.handleDriverDelete = this.handleDriverDelete.bind(this);
+    this.handleAllDriversDelete = this.handleAllDriversDelete.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.readFile = this.readFile.bind(this);
     this.refreshDrivers = this.refreshDrivers.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleShow = this.handleShow.bind(this);
+    this.handleAllShow = this.handleAllShow.bind(this);
     this.sortColumn = this.sortColumn.bind(this);
 }
   
@@ -94,18 +98,32 @@ sortColumn(key) {
 }
 
 handleClose() {
-    this.setState({show: false});
+    this.setState({show: false, allShow: false});
 }
 
+// For deleting 1 or all drivers
 handleSave() {
     this.handleClose();
-    this.handleDriverDelete(this.state.driverToDelete);
-    this.setState({driverToDelete: {}});
+    if (this.state.show) {
+        this.handleDriverDelete(this.state.driverToDelete);
+        this.setState({driverToDelete: {}});
+    }
+    else if (this.state.allShow) {
+        this.handleAllDriversDelete(this.state.allDriversDelete);
+        this.setState({ allDriversDelete: [] });
+    }
 }
 
+  // For deleting 1 driver
 handleShow(e, d) {
     e.preventDefault();
     this.setState({show: true, driverToDelete: d});
+}
+  
+// For deleting all drivers
+handleAllShow(e, d) {
+    e.preventDefault();
+    this.setState({allShow: true, allDriversDelete: d});
 }
 
 /**
@@ -121,6 +139,18 @@ handleDriverDelete(d) {
         });
         self.setState({ drivers: newArr, filtered: newArr })
     });
+}
+  
+ /**
+ * Event handler used to delete all drivers from the database when the 
+ * user clicks on the delete all button.
+ * @param {Object} d The drivers object to be deleted.
+ */
+handleAllDriversDelete(d) {
+    var self = this;
+    for (var i = 0; i < d.length; i++) {
+        this.handleDriverDelete(d[i]);
+    }
 }
 
 get_availability(availability_list) {
@@ -260,8 +290,19 @@ readFile(event) {
                                     ></FormControl>
                                 </InputGroup>
                             </Col>
-                            <Col sm={2} className="justify-content-end d-flex flex-row">
-                                <Button href="/addDriver">Add New</Button>
+                            <Col sm={2} className="justify-content-around d-flex flex-row">
+                                <Button href="/addDriver" style={{ marginRight: 2.5 }}>Add New</Button>
+                                <Button onClick={(e) => this.handleAllShow(e, searchService.findDrivers(e, this.state.drivers))} variant='primary' style={{ marginLeft: 2.5 }}>Delete All</Button>
+                                <DialogBox 
+                                    show={this.state.allShow} 
+                                    modalTitle='Confirm Deletion'
+                                    mainMessageText='Are you sure you want to delete all entries?'
+                                    handleClose={this.handleClose}
+                                    handleSave={this.handleSave}
+                                    closeText='Cancel'
+                                    saveText='Delete'
+                                    buttonType='danger'
+                                />
                             </Col>
                         </Row>
                     </Col>
