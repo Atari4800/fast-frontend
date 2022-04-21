@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Spinner from 'react-bootstrap/Spinner'
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -41,7 +42,8 @@ constructor(props) {
         allShow: false,
         driverToDelete: {},
         allDriversDelete: [],
-        sorted: false
+        sorted: false,
+        loading: false
     };
     this.fileInput = React.createRef();
     this.handleDriverDelete = this.handleDriverDelete.bind(this);
@@ -54,6 +56,7 @@ constructor(props) {
     this.handleShow = this.handleShow.bind(this);
     this.handleAllShow = this.handleAllShow.bind(this);
     this.sortColumn = this.sortColumn.bind(this);
+    this.handleUploadSubmit = this.handleUploadSubmit.bind(this);
 }
   
 /**
@@ -69,7 +72,7 @@ componentDidMount() {
 refreshDrivers(){
     var self = this;
     driverService.getDrivers().then(function (result) {
-        self.setState({ drivers: result, filtered: result });
+        self.setState({ drivers: result, filtered: result, loading: false });
     });
 }
 
@@ -264,6 +267,21 @@ readFile(event) {
         });
     });
 }
+  
+  // Handle uploading Drivers when button is clicked
+  handleUploadSubmit = (event) => {
+    if (this.fileInput.current.value) {
+        this.setState({
+            loading: true
+        });
+        driverService.uploadDrivers(this.state.new_drivers);
+        this.fileInput.current.value = '';
+        this.refreshDrivers();
+        this.setState({
+            new_drivers: [],
+        });
+    }
+}
 
   /**
  * The render method used to display the component. 
@@ -391,14 +409,12 @@ readFile(event) {
                     <Col>
                         <Row>
                             <Col sm={2} className="d-flex flex-row">
-                                <Button className="mx-1" onClick={() => {
-                                    driverService.uploadDrivers(this.state.new_drivers);
-                                    this.setState({
-                                        new_drivers: [],
-                                    });
-                                    this.fileInput.current.value = '';
-                                    this.refreshDrivers();
-                                }}>Add Drivers</Button>
+                                <Button className="mx-1" onClick={this.handleUploadSubmit}>
+                                    {this.state.loading ?
+                                        <Spinner
+                                            animation="border" role="status" style={{ height: 25, width: 25 }}>
+                                        </Spinner> : "Add Drivers"}
+                                </Button>
                             </Col>
                         </Row>
                     </Col>
