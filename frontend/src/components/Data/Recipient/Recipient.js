@@ -1,4 +1,5 @@
 import  React, { Component } from  'react';
+import Spinner from 'react-bootstrap/Spinner'
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -41,7 +42,8 @@ class Recipient extends Component {
             allShow: false,
             recipientToDelete: {},
             allRecipientsDelete: [],
-            sorted: false
+            sorted: false,
+            loading: false
         };
         this.fileInput = React.createRef();
         this.handleRecipientDelete = this.handleRecipientDelete.bind(this);
@@ -53,6 +55,7 @@ class Recipient extends Component {
         this.handleSave = this.handleSave.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleAllShow = this.handleAllShow.bind(this);
+        this.handleUploadSubmit = this.handleUploadSubmit.bind(this);
     }
 
     /**
@@ -98,7 +101,7 @@ class Recipient extends Component {
     refreshRecipients(){
         var  self  =  this;
         recipientService.getRecipients().then(function (result) {
-            self.setState({ recipients:  result, filtered: result});
+            self.setState({ recipients:  result, filtered: result, loading: false});
             });
     }
 
@@ -264,6 +267,21 @@ handleAllRecipientsDelete(r) {
             });
         });
     }
+    
+    // Handles upload Recipients button when clicked
+    handleUploadSubmit = (event) => {
+        if (this.fileInput.current.value) {
+            this.setState({
+                loading: true
+            });
+            recipientService.uploadRecipients(this.state.new_recipients);
+            this.fileInput.current.value = '';
+            this.refreshRecipients();
+            this.setState({
+                new_recipients: [],
+            });
+        }
+    }
 
   /**
    * The render method used to display the component. 
@@ -413,14 +431,12 @@ handleAllRecipientsDelete(r) {
                     <Col>
                         <Row>
                             <Col sm={2} className="d-flex flex-row">
-                                <Button className="mx-1" onClick={() => {
-                                    recipientService.uploadRecipients(this.state.new_recipients);
-                                    this.setState({
-                                        new_recipients: [],
-                                    });
-                                    this.fileInput.current.value = '';
-                                    this.refreshRecipients();
-                                }}>Add Recipients</Button>
+                                <Button className="mx-1" onClick={this.handleUploadSubmit}>
+                                    {this.state.loading ?
+                                        <Spinner
+                                            animation="border" role="status" style={{ height: 25, width: 25 }}>
+                                        </Spinner> : "Add Recipients"}
+                                </Button>
                             </Col>
                         </Row>
                     </Col>
