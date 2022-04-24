@@ -1,5 +1,6 @@
 import  React, { Component } from  'react';
 import Spinner from 'react-bootstrap/Spinner'
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -37,6 +38,9 @@ constructor(props) {
          errorDriRecMessage: '',
          errorDurationColor: '',
          errorDeliveryColor: '',
+         progressBar: 0,
+         progressBarMessage: '',
+         showProgressBar: false
      };
 
     //  this.getCenter = this.getCenter.bind(this);
@@ -232,13 +236,20 @@ handleSubmit = (event) => {
     this.setState({
       loading: true,
       errorDurDel: false,
-      errorDriRec: false
+      errorDriRec: false,
+      showProgressBar: true,
+      progressBar: 50,
+      progressBarMessage: 'Creating Route...'
     });
     routeService.createRoute(this.state.route).then(result => {
-      let redirect = "/routeResults/" + result.id 
-      window.open(redirect, "_blank")
       this.setState({
-        loading: false
+        progressBar: 100,
+        progressBarMessage: 'Finalizing Route...'
+      });
+      routeService.getRouteList(result.id).then(routeResult => {
+        let redirect = "/routeResults/" + routeResult.id 
+        setTimeout(() => { window.open(redirect, "_blank"); }, 2500);
+        setTimeout(() => { this.setState({ loading: false, progressBar: 0, progressBarMessage: '', showProgressBar: false }); }, 2500);
       });
     });
   }
@@ -288,13 +299,20 @@ render() {
         <SelectDriver parentCallback = {this.handleDriverCallback}/>
         <SelectRecipient parentCallback = {this.handleRecipientCallback} />
        
-        <Button className="mr-2 mt-4 btn" variant="primary" disabled={this.state.loading}
+        <Row>
+         <Col sm={0} className="d-flex flex-row">
+          <Button className="mr-2 mt-4 btn" variant="primary" disabled={this.state.loading}
                 onClick={handleSubmit}>
                   {this.state.loading ?  
                     <Spinner
-                      animation="border" role="status">
+                      animation="border" role="status" style={{ height: 25, width: 25 }}>
                     </Spinner> : "Create Route"}
-        </Button>
+          </Button>
+            {this.state.showProgressBar ?
+                        <ProgressBar style={{ width: 400, marginTop: 45 }} animated now={this.state.progressBar}/> : ''}
+         </Col>
+            <h3 className="btn" style={{ fontSize: 20, marginTop: -38 }}> { this.state.progressBarMessage } </h3>
+        </Row>
         {this.state.error ? 
                     <h3 className='errorDurDel' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorDurDelMessage } </h3> : ""}
         {this.state.errorDriRec ?
