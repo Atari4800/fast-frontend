@@ -313,7 +313,7 @@ render() {
          </Col>
             <h3 className="btn" style={{ fontSize: 20, marginTop: -38 }}> { this.state.progressBarMessage } </h3>
         </Row>
-        {this.state.error ? 
+        {this.state.errorDurDel ? 
                     <h3 className='errorDurDel' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorDurDelMessage } </h3> : ""}
         {this.state.errorDriRec ?
                     <h3 className='errorDriRec' style={{ fontSize: 20, color: "red", marginTop: 10 }}> { this.state.errorDriRecMessage } </h3> : ""}
