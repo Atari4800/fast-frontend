@@ -238,9 +238,10 @@ handleSubmit = (event) => {
       errorDurDel: false,
       errorDriRec: false,
       showProgressBar: true,
-      progressBar: 50,
+      progressBar: 0,
       progressBarMessage: 'Creating Route...'
     });
+    setTimeout(() => { this.setState({ progressBar: 50 }); }, 500);
     routeService.createRoute(this.state.route).then(result => {
       this.setState({
         progressBar: 100,
