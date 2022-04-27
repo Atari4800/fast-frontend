@@ -5,13 +5,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import RouteService from "../../services/RouteService";
 import RecipientService from "../../services/RecipientService";
 import DriverService from "../../services/DriverService";
+import SearchService from "../../services/SearchService";
+import { DialogBox } from "../Utils/DialogBox";
 
 const recipientService = new RecipientService();
 const routeService = new RouteService();
 const driverService = new DriverService();
+const searchService = new SearchService();
 
 /**
  * This class is used to display a history of all routes
@@ -43,6 +47,7 @@ class History extends Component {
     this.getRecipientName = this.getRecipientName.bind(this);
     this.getPhone = this.getPhone.bind(this);
     this.getEmployeeStatus = this.getEmployeeStatus.bind(this);
+    this.isEmployee = this.isEmployee.bind(this)
   }
 
   /**
@@ -214,6 +219,16 @@ class History extends Component {
     return month + "/" + day + "/" + year;
   }
 
+  isEmployee(driver) {
+    let empStatus = this.getEmployeeStatus(driver)
+    if (empStatus === "Employee") {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
   /**
    * The render method used to display the component.
    * @returns The HTML to be rendered.
@@ -225,12 +240,14 @@ class History extends Component {
           <h1 style={{ textAlign: "center" }}>Route History</h1>
         </div>
         {this.state.routes.reverse().map((r) => (
-          <Card>           
+          <Card>
             <Card.Title className="card-header border-dark bg-grey">
               <Col>
                 <Row className="d-flex flex-row">
                   <Col sm={7} className="title">
-                    <h6 style={{paddingLeft:0}}>{this.getRouteDate(r.created_on)}</h6>
+                    <h6 style={{ paddingLeft: 0 }}>
+                      {this.getRouteDate(r.created_on)}
+                    </h6>
                     {this.getDriverName(r)}
                   </Col>
                 </Row>
@@ -267,7 +284,7 @@ class History extends Component {
                   <th>City</th>
                   <th>State</th>
                   <th>Zip Code</th>
-                  <th>Phone Number</th>
+                  <th>{this.isEmployee(r) ? "Phone Number" : ""}</th>
                   <th>Quantity</th>
                   <th>Comments</th>
                 </tr>
@@ -285,7 +302,7 @@ class History extends Component {
                     <td>{s.address.city}</td>
                     <td>{s.address.state}</td>
                     <td>{s.address.zipcode}</td>
-                    <td>{this.getPhone(s)}</td>
+                    <td>{this.isEmployee(r) ? this.getPhone(s) : ""}</td>
                     <td>{s.demand}</td>
                     <td>{this.getRecipientComment(s)}</td>
                   </tr>
