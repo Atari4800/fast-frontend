@@ -34,7 +34,7 @@ function Home() {
                 For Drivers, the first line of the file should be in the format:<br />
                 <table>
                     <tr>
-                        <td style={{border:"2px solid black"}}>FirstName</td>
+                        <td style={{border:"2px solid black"}}>Firstname</td>
                         <td style={{border:"2px solid black"}}>Lastname</td>
                         <td style={{border:"2px solid black"}}>Role</td>
                         <td style={{border:"2px solid black"}}>Availability</td>
