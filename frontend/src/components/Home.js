@@ -44,8 +44,8 @@ function Home() {
                     </tr>
                 </table>
                 <br/>
-                FirstName: The given name of the Driver <br/>
-                LastName: The family name of the Driver <br/>
+                Firstname: The given name of the Driver <br/>
+                Lastname: The family name of the Driver <br/>
                 Role: If the Driver is an Employee or a Volunteer<br/>
                 Availability: How many Hours the Driver can work if they are a volunteer<br/>
                 Language: What languages the Driver can communicate in<br/>
@@ -70,7 +70,8 @@ function Home() {
                 </table>
                 <br/>
                 Phone: The Phone Number of the Recipient<br/>
-                FirstName: The given name of the Recipient<br/>
+                Firstname: The given name of the Recipient<br/>
+                Lastname: The family name of the Recipient<br/>
                 Address: The Address of the Recipient<br/>
                 City: The City the Recipient lives in<br/>
                 State: The State of the Recipient<br/>
