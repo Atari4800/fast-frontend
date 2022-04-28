@@ -43,6 +43,14 @@ function Home() {
                         <td style={{border:"2px solid black"}}>Capacity</td>
                     </tr>
                 </table>
+                <br/>
+                FirstName: The given name of the Driver <br/>
+                LastName: The family name of the Driver <br/>
+                Role: If the Driver is an Employee or a Volunteer<br/>
+                Availability: How many Hours the Driver can work if they are a volunteer<br/>
+                Language: What languages the Driver can communicate in<br/>
+                Phone: The phone number of the Driver<br/>
+                Capacity: The capacity of the vehicle<br/>
                 <br />
                 For Recipients, the first line of the file should be in the format:<br />
                 <table style={{border:"1px solid black"}}>
@@ -60,6 +68,17 @@ function Home() {
                         <td style={{border:"2px solid black"}}>Quantity</td>
                     </tr>
                 </table>
+                <br/>
+                Phone: The Phone Number of the Recipient<br/>
+                FirstName: The given name of the Recipient<br/>
+                Address: The Address of the Recipient<br/>
+                City: The City the Recipient lives in<br/>
+                State: The State of the Recipient<br/>
+                Zipcode: The Zipccode of the Recipient <br/>
+                Center: If the address is the ISC Address, set to 0 otherwise<br/>
+                Room_Number: The Room Number of the Recipient, if applicable, otherwise leave blank.<br/>
+                Language: The Languages the Recipient can communiacate in<br/>
+                Quantity: The Quantity of packages the Recipient requests<br/>
                 <br />
                 These files can be uploaded by clicking on the Browse Files button and browsing to your prepared file on your computer.<br /><br />
                 <h3 style={{color:"navy"}}>How to create new Routes:</h3>
@@ -86,7 +105,6 @@ function Home() {
                 Once the assignment is complete, you may:
                 <ul style={{paddingLeft:"100px"}}>
                     <li>Click View Map to open a new window containing a static Bing map of the resulting routes</li>
-                    <li>Click View Metrics button to open a window containing calculated metrics for these routes</li>
                 </ul>
                 <br />
             </p>
