@@ -47,6 +47,7 @@ function Home() {
                 For Recipients, the first line of the file should be in the format:<br />
                 <table style={{border:"1px solid black"}}>
                     <tr>
+                        <td style={{border:"2px solid black"}}>Phone</td>
                         <td style={{border:"2px solid black"}}>Firstname</td>
                         <td style={{border:"2px solid black"}}>Lastname</td>
                         <td style={{border:"2px solid black"}}>Address</td>
