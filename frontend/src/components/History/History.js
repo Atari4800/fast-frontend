@@ -14,6 +14,8 @@ import BingMapsKey from '../BingMapsKey';
 const recipientService = new RecipientService();
 const routeService = new RouteService();
 const driverService = new DriverService();
+const dateFormat = new Intl.DateTimeFormat("en-US", {month: "short", day:"2-digit", year: "numeric"});
+const timeFormat = new Intl.DateTimeFormat("en-US", {hour: "numeric", minute: "numeric"});
 const BING_MAPS_API_KEY = BingMapsKey.key;
 
 /**
@@ -206,18 +208,32 @@ class History extends Component {
   }
 
   /**
-   * Function to format date each route was generated on
+   * Function to format date each route was generated
    * for each driver.
    * @param {String} recipient.created_on from the route.
    * @returns formatted string of date of route generated.
    */
   getRouteDate(route_date) {
-    let month = route_date.substring(5, 7);
-    let day = route_date.substring(8, 10);
-    let year = route_date.substring(0, 4);
-    return month + "/" + day + "/" + year;
+    let date = new Date(route_date)
+    return dateFormat.format(date);
   }
 
+  /**
+   * Function to format time each route was generated
+   * for each driver.
+   * @param {String} recipient.created_on from the route.
+   * @returns formatted string of time of route generated.
+   */
+   getRouteTime(route_date) {
+    let time = new Date(route_date);
+    return timeFormat.format(time);
+  }
+
+/**
+ * Function to check if a driver is an employee * 
+ * @param {Object} driver
+ * @returns boolean true if employee; false otherwise.
+ */
   isEmployee(driver) {
     let empStatus = this.getEmployeeStatus(driver)
     if (empStatus === "Employee") {
@@ -428,6 +444,9 @@ getItineraryMapURL(route) {
         </div>
         {this.state.routes.reverse().map((r) => (
           <Card>
+            <h6 style={{ paddingLeft: 0 }}>
+              {this.getRouteDate(r.created_on)} at {this.getRouteTime(r.created_on)}
+            </h6>
             <Card.Title className="card-header border-dark bg-grey">
               <Col>
                 <Row className="d-flex flex-row">
