@@ -444,15 +444,12 @@ getItineraryMapURL(route) {
         </div>
         {this.state.routes.reverse().map((r) => (
           <Card>
-            <h6 style={{ paddingLeft: 0 }}>
-              {this.getRouteDate(r.created_on)} at {this.getRouteTime(r.created_on)}
-            </h6>
             <Card.Title className="card-header border-dark bg-grey">
               <Col>
                 <Row className="d-flex flex-row">
                   <Col sm={8} className="title">
                     <h6 style={{ paddingLeft: 0 }}>
-                      {this.getRouteDate(r.created_on)}
+                      {this.getRouteDate(r.created_on)} at {this.getRouteTime(r.created_on)}
                     </h6>
                     {this.getDriverName(r)}
                   </Col>
