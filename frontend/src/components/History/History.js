@@ -507,7 +507,7 @@ handleAllShow(e, r) {
     return (
       <Container>
         <div>
-          <h1 style={{ textAlign: "center" }}>Route History {console.log(this.state.routeLists)}</h1>
+          <h1 style={{ textAlign: "center" }}>Route History</h1>
         </div>
         <Col>
           <Row>
