@@ -10,7 +10,7 @@ import RouteService from '../../services/RouteService'
 import RecipientService from '../../services/RecipientService'
 import DriverService from '../../services/DriverService'
 import LocationService from '../../services/LocationService'
-import BingMapsKey from './BingMapsKey';
+import BingMapsKey from '../BingMapsKey';
 
 const  routeService  =  new  RouteService();
 const  recipientService  =  new  RecipientService();
@@ -506,7 +506,7 @@ render() {
             <Card.Title className="card-header border-dark bg-grey">
                 <Col>
                     <Row className="d-flex flex-row">
-                        <Col sm={7} className="title">
+                        <Col sm={8} className="title">
                             {this.getDriverName(r)}
                         </Col>
                         <Col sm={0} className="justify-content-around d-flex flex-row">
