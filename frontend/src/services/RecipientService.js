@@ -5,7 +5,7 @@ const API_URL = 'http://127.0.0.1:8000';
  * This class provides methods to connect to the backend database
  * for the creation, update, retrieval, and deletion of recipients.
  */
-export default class RecipientService {
+export default class RecipientService{
 
     /**
      * This method connects to the backend database to
@@ -26,7 +26,7 @@ export default class RecipientService {
      * @param {Number} pk - The primary key of the recipient to be retrieved.
      * @returns The recipient information, as a JSON object, for a specific recipient.
      */
-    getRecipient(pk) {
+     getRecipient(pk) {
         const url = `${API_URL}/api/clients/${pk}/`;
         return axios.get(url).then(response => response.data);
     }
@@ -37,12 +37,12 @@ export default class RecipientService {
      * @returns A response code indicating success or failure of the HTTP
      *          deletion request.
      */
-    deleteRecipient(recipient) {
+    deleteRecipient(recipient){
         const url = `${API_URL}/api/clients/${recipient.id}/`;
         return axios.delete(url);
     }
 
-    uploadRecipients(recipients) {
+    uploadRecipients(recipients){
         const url = `${API_URL}/api/clients/`;
         if (recipients.length > 0) {
             console.log('Saving File to ' + url);
@@ -61,10 +61,10 @@ export default class RecipientService {
      * @returns A JSON object of the recipient that has been created, or 
      *          an error message if the request fails.
      */
-    createRecipient(recipient) {
+     createRecipient(recipient){
         const url = `${API_URL}/api/clients/`;
         //const url = `${API_URL}/clients/`;
-        return axios.post(url, recipient).then(response => response.data);
+        return axios.post(url,recipient).then(response => response.data);
     }
 
     /**
@@ -75,9 +75,9 @@ export default class RecipientService {
      * @returns A JSON object of the recipient that has been updated, or 
      *          an error message if the request fails.
      */
-    updateRecipient(recipient) {
+     updateRecipient(recipient){
         const url = `${API_URL}/api/clients/${recipient.id}/`;
         //const url = `${API_URL}/clients/${recipient.pk}`;
-        return axios.put(url, recipient);
+        return axios.put(url,recipient);
     }
 }

@@ -37,7 +37,7 @@ const BaseLayout = () => (
 
     <div className="content">
       <Route path="/" exact component={Driver} />
-      <br />
+      <br/>
       <Route path="/" exact component={Recipient} />
       <Route path="/routing" exact component={Routing} />
       <Route path="/routeResults/:id" exact component={RouteResults} />
@@ -48,18 +48,18 @@ const BaseLayout = () => (
       <Route path="/updateRecipient/:id" exact component={UpdateRecipient} />
       <Route path="/recipientDetail/:id" exact component={ViewRecipient} />
       <Route path="/driverDetail/:id" exact component={ViewDriver} />
-      <Route path="/uploadDriversList" exact component={UploadDriversList} />
-      <Route path="/previewDrivers" exact component={PreviewDrivers} />
+      <Route path="/uploadDriversList" exact component={UploadDriversList}/>
+      <Route path="/previewDrivers" exact component={PreviewDrivers}/>
     </div>
   </div>
-
+  
 )
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter forceRefresh={true}>
-        <BaseLayout />
+        <BaseLayout/>
       </BrowserRouter>
     );
   }

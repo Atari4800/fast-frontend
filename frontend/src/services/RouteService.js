@@ -5,7 +5,7 @@ const API_URL = 'http://127.0.0.1:8000';
  * This class provides methods to connect to the backend database
  * for the creation and retrieval of routes.
  */
-export default class RouteService {
+export default class RouteService{
 
     /**
      * This method connects to the backend database to
@@ -13,7 +13,7 @@ export default class RouteService {
      * @returns The list of routes, as JSON objects, stored in the
      *          database.
      */
-    getRoutes() {
+     getRoutes() {
         const url = `${API_URL}/api/routes/`;
         return axios.get(url).then(response => response.data);
     }
@@ -36,7 +36,7 @@ export default class RouteService {
      * @param {Number} pk - The primary key of the route to be retrieved.
      * @returns The route information, as a JSON object, for a specific route.
      */
-    getRoute(pk) {
+     getRoute(pk) {
         const url = `${API_URL}/api/routes/${pk}/`;
         return axios.get(url).then(response => response.data);
     }
@@ -48,8 +48,8 @@ export default class RouteService {
      * @returns A JSON object of the route that has been created, or 
      *          an error message if the request fails.
      */
-    createRoute(route) {
+     createRoute(route){
         const url = `${API_URL}/api/routes/`;
-        return axios.post(url, route).then(response => response.data);
+        return axios.post(url,route).then(response => response.data);
     }
 }
