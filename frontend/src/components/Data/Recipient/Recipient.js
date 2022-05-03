@@ -534,7 +534,7 @@ handleAllLocationsDelete(locs) {
                                     headers={headers}
                                     filename='recipients.csv'
                                     ref={this.csvLink}
-                                >Download Clients</CSVLink>
+                                >Download Recipients</CSVLink>
                             </Col>
                         </Row>
                     </Col>
