@@ -491,7 +491,6 @@ getCSVData() {
                                 data={this.getCSVData()}
                                 headers={headers}
                                 filename='drivers.csv'
-                                ref={this.csvLink}
                             >Download Drivers</CSVLink>
                             </Col>
                         </Row>

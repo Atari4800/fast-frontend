@@ -533,7 +533,6 @@ handleAllLocationsDelete(locs) {
                                     data={this.getCSVData()}
                                     headers={headers}
                                     filename='recipients.csv'
-                                    ref={this.csvLink}
                                 >Download Recipients</CSVLink>
                             </Col>
                         </Row>
