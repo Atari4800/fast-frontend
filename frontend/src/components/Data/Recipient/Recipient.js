@@ -529,7 +529,7 @@ handleAllLocationsDelete(locs) {
                                 </Button>
                             </Col>
                             <Col>
-                                <CSVLink
+                                <CSVLink style={{ margin: 20}}
                                     data={this.getCSVData()}
                                     headers={headers}
                                     filename='recipients.csv'
