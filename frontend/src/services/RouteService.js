@@ -25,7 +25,6 @@ export default class RouteService{
      *          database.
      */
     getRouteLists() {
-        console.log("getRouteLists")
         const url = `${API_URL}/api/routeList/`;
         return axios.get(url).then(response => response.data);
     }
@@ -37,7 +36,6 @@ export default class RouteService{
      *          database.
      */
      getRouteList(pk) {
-        console.log("getRouteList")
         const url = `${API_URL}/api/routeList/${pk}/`;
         return axios.get(url).then(response => response.data);
     }    
@@ -49,7 +47,6 @@ export default class RouteService{
      *          deletion request.
      */
     deleteRouteList(routeList){
-        console.log("deleteRouteList")
         const url = `${API_URL}/api/routeList/${routeList.id}/`;
         return axios.delete(url);
     }    
